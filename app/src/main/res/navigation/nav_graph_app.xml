@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_app"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.serebro_gallery.presentation.fragment.MainFragment"
+        android:label="fragment_main">
+
+        <action
+            android:id="@+id/action_mainFragment_to_exhibitionFragment"
+            app:destination="@id/exhibitionFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/exhibitionFragment"
+        android:name="com.example.serebro_gallery.presentation.fragment.ExhibitionFragment"
+        android:label="fragment_exhibition">
+    </fragment>
+    <fragment
+        android:id="@+id/linkFragment"
+        android:name="com.example.serebro_gallery.presentation.fragment.LinkFragment"
+        android:label="fragment_link">
+    </fragment>
+
+    <action
+        android:id="@+id/action_global_mainFragment"
+        app:destination="@id/mainFragment"
+        app:popUpTo="@id/mainFragment"
+        app:popUpToInclusive="true"/>
+    <action
+        android:id="@+id/action_global_linkFragment"
+        app:destination="@id/linkFragment"
+        app:popUpTo="@id/linkFragment" />
+</navigation>
