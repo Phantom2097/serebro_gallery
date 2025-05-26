@@ -31,6 +31,7 @@ class LinkFragment : Fragment() {
             Link("Главная", R.id.mainFragment),
             Link("Партнёры", R.id.mainFragment),
             Link("Контакты", R.id.mainFragment),
+            Link("О проекте", R.id.aboutProjectFragment),
             Link("Профиль", R.id.mainFragment)
         )
 

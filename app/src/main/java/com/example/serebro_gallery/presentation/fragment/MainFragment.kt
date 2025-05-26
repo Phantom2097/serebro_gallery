@@ -56,7 +56,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             ExhibitionItem(
                 "22 января 2023",
                 "Не зря тащил фотик в такую даль",
-                "Первая фотовыставка в 2023 году.",
+                "Первая фотовыставка в 2023 году",
                 R.drawable.img
             ),
             ExhibitionItem(
