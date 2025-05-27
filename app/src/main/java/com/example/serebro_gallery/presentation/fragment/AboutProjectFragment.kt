@@ -19,9 +19,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import org.jsoup.Jsoup
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
+import java.util.concurrent.TimeUnit
 
 class AboutProjectFragment : Fragment() {
 
@@ -41,65 +44,24 @@ class AboutProjectFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Настройка WebView
-        webView.settings.javaScriptEnabled = true
-        webView.settings.domStorageEnabled = true
-        webView.settings.mediaPlaybackRequiresUserGesture = false
-
-        // Загрузка видео
-        webView.loadUrl("https://vk.com/video-213066984_456239018?embed")
+        //// Настройка WebView
+        //webView.settings.javaScriptEnabled = true
+        //webView.settings.domStorageEnabled = true
+        //webView.settings.mediaPlaybackRequiresUserGesture = false
+//
+        //// Загрузка видео
+        //webView.loadUrl("https://vk.com/video-213066984_456239018?embed")
 
         binding = FragmentAboutProjectBinding.bind(view)
         binding.button2.setOnClickListener{
             println("!!! start")
-
-            // Настройка клиент для обработки ссылок
-            webView.webViewClient = object : WebViewClient() {
-                override fun shouldOverrideUrlLoading(
-                    view: WebView?,
-                    request: WebResourceRequest?
-                ): Boolean {
-                    extracted()
-                    return false
-                }
-            }
+            //extracted()
         }
 
-    }
-
-    private fun extracted() {
-        lifecycleScope.launch {
-            try {
-                // Загружаем HTML с помощью Retrofit
-                val htmlContent = withContext(Dispatchers.IO) {
-                    RetrofitClient.api.getExhibitionsPage()
-                }
-                println("!!! ${htmlContent.substring(0, 200)}")
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-    }
-
-    interface SerebroApi {
-        @GET("photo") // Укажите правильный путь, например, "/exhibitions" или полный URL
-        suspend fun getExhibitionsPage(): String
     }
 
     override fun onDestroyView() {
         webView.destroy()
         super.onDestroyView()
-    }
-
-    object RetrofitClient {
-        val base_url = "https://serebrogallery.ru/"
-        val api: SerebroApi by lazy {
-            Retrofit.Builder()
-                .baseUrl(base_url)
-                .client(okHttpClient)
-                .addConverterFactory(ScalarsConverterFactory.create()) // Для получения HTML как String
-                .build()
-                .create(SerebroApi::class.java)
-        }
     }
 }

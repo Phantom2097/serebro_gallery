@@ -18,7 +18,7 @@
 
     <style name="Text.Golos.BigBeauty" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/good_vibes_pro</item>
-        <item name="android:textSize">35sp</item>
+        <item name="android:textSize">33sp</item>
         <item name="android:gravity">center</item>
     </style>
 
