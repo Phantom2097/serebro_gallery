@@ -54,7 +54,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         }
     }
-
     private fun setupViewMode() {
         nameEditText.setText(sharedPreferences.getString("NAME", ""))
         surnameEditText.setText(sharedPreferences.getString("SURNAME", ""))
