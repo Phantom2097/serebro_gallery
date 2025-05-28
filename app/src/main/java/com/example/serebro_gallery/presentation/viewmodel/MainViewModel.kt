@@ -27,7 +27,7 @@ class MainViewModel : ViewModel() {
     fun loadExhibitions() {
         viewModelScope.launch {
             try {
-                val htmlContent = RetrofitHelper.creatRetrofit().getExhibitionsPage()
+                val htmlContent = RetrofitHelper.creatExhibitionRetrofit().getExhibitionsPage()
                 _exhibitions.postValue(parseExhibitions(htmlContent))
             } catch (e: Exception) {
                 println("!!! Error processing request: ${e.message}")

@@ -29,6 +29,16 @@
         android:name="com.example.serebro_gallery.presentation.fragment.AboutProjectFragment"
         android:label="fragment_about">
     </fragment>
+    <fragment
+        android:id="@+id/partneryFragment"
+        android:name="com.example.serebro_gallery.presentation.fragment.PartneryFragment"
+        android:label="fragment_partnery">
+    </fragment>
+    <fragment
+        android:id="@+id/contactsFragment"
+        android:name="com.example.serebro_gallery.presentation.fragment.ContactsFragment"
+        android:label="fragment_contacts">
+    </fragment>
 
     <action
         android:id="@+id/action_global_mainFragment"

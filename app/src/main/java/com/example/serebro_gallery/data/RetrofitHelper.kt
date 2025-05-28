@@ -7,7 +7,15 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 
 object RetrofitHelper {
 
-    fun creatRetrofit(): ExhibitionApi {
+    fun creatExhibitionRetrofit(): ExhibitionApi {
+        return creatRetrofit().create(ExhibitionApi::class.java)
+    }
+
+    fun creatPartnersRetrofit(): PartnersApi {
+        return creatRetrofit().create(PartnersApi::class.java)
+    }
+
+    fun creatRetrofit(): Retrofit {
         val loggingInterceptor = HttpLoggingInterceptor().apply {
             setLevel(HttpLoggingInterceptor.Level.BODY)
         }
@@ -34,6 +42,6 @@ object RetrofitHelper {
             .addConverterFactory(ScalarsConverterFactory.create()) // Для получения HTML как String
             .build()
 
-        return retrofit.create(ExhibitionApi::class.java)
+        return retrofit
     }
 }
