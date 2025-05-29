@@ -29,9 +29,9 @@ class LinkFragment : Fragment() {
 
         val links = listOf(
             Link("Главная", R.id.mainFragment),
-            Link("Партнёры", R.id.mainFragment),
+            Link("Партнёры", R.id.partnersFragment),
             Link("Контакты", R.id.mainFragment),
-            Link("Профиль", R.id.mainFragment)
+            Link("Профиль", R.id.profileFragment)
         )
 
         binding.rvLinks.apply {
