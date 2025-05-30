@@ -31,7 +31,8 @@ class LinkFragment : Fragment() {
             Link("Главная", R.id.mainFragment),
             Link("Партнёры", R.id.partnersFragment),
             Link("Контакты", R.id.mainFragment),
-            Link("Профиль", R.id.profileFragment)
+            Link("Профиль", R.id.profileFragment),
+            Link("Принять участие", R.id.to_form_filling_graph)
         )
 
         binding.rvLinks.apply {
