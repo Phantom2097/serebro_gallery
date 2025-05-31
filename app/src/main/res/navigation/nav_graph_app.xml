@@ -30,16 +30,21 @@
         android:label="fragment_about">
     </fragment>
     <fragment
-        android:id="@+id/partneryFragment"
-        android:name="com.example.serebro_gallery.presentation.fragment.PartneryFragment"
-        android:label="fragment_partnery">
-    </fragment>
-    <fragment
         android:id="@+id/contactsFragment"
         android:name="com.example.serebro_gallery.presentation.fragment.ContactsFragment"
         android:label="fragment_contacts">
     </fragment>
 
+    <fragment
+        android:id="@+id/partnersFragment"
+        android:name="com.example.serebro_gallery.presentation.fragment.PartnersFragment"
+        android:label="fragment_link">
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.serebro_gallery.presentation.fragment.ProfileFragment"
+        android:label="fragment_link">
+    </fragment>
     <action
         android:id="@+id/action_global_mainFragment"
         app:destination="@id/mainFragment"
