@@ -10,9 +10,6 @@ import android.provider.MediaStore.MediaColumns.DISPLAY_NAME
 import ru.null_checkers.form_filling_screen.domain.use_cases.ShowImagesFromLocalStorage
 import ru.null_checkers.form_filling_screen.ui.formfilling.MediaFile
 
-/**
- * @author Phantom2097
- */
 // Вообще наверное должно быть в дата модуле
 @Deprecated("Судя по всему это было не нужно")
 class ShowImagesFromLocalStorageUseCase : ShowImagesFromLocalStorage {

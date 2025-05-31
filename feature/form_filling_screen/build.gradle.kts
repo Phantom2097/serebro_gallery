@@ -46,7 +46,7 @@ dependencies {
     // Coroutines
     implementation(libs.kotlinx.coroutines.android)
 
-    //Dagger
+    // Dagger
     implementation(libs.dagger)
     ksp(libs.dagger.compiler)
 
@@ -56,6 +56,13 @@ dependencies {
     // Navigation
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
+
+//    // OkHttp
+//    implementation(libs.logging.interceptor)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
     // Test
     testImplementation(libs.junit)

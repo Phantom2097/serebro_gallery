@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import ru.null_checkers.form_filling_screen.ui.select_image_from_storage.recycler.OnItemClick
+import ru.null_checkers.form_filling_screen.domain.use_cases_impls.SendDataToForm
 
 /**
  * @author Phantom2097
@@ -17,9 +17,6 @@ class FormFillingViewModel(
     private var _userFieldsState = MutableStateFlow<UserForm>(UserForm())
     val userFieldsState = _userFieldsState.asStateFlow()
 
-    private var _mediaDataState = MutableStateFlow<List<MediaFile>>(emptyList())
-    val mediaDataState = _mediaDataState.asStateFlow()
-
     fun updateNameField(newName: String = NAME_FIELD_EMPTY) {
         _userFieldsState.update { it.copy(name = newName) }
     }
@@ -28,17 +25,17 @@ class FormFillingViewModel(
         _userFieldsState.update { it.copy(tgAccount = newTg) }
     }
 
-//    fun getMediaFiles(context: Context) {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            val list = showImagesFromLocalStorage(context)
-//            _mediaDataState.update { list }
-//            Log.d("imagePick", "${_mediaDataState.value}")
-//        }
-//    }
-
     override fun onItemClick(file: MediaFile) {
         _userFieldsState.update { it.copy(image = file) }
     }
+
+    fun goToOnlineForm() : String {
+        userFieldsState.value.apply {
+            return SendDataToForm.sendDataToForm(name, tgAccount)
+        }
+    }
+
+    fun getMedia() = userFieldsState.value
 
     private companion object {
         private const val NAME_FIELD_EMPTY = ""

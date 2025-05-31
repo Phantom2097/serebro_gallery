@@ -3,8 +3,6 @@ package ru.null_checkers.form_filling_screen.ui.formfilling
 import android.net.Uri
 
 /**
- * @author Phantom2097
- *
  * @param uri поле, которое содержит uri изображения
  * @param name поле, которое содержит название изображения
  */

@@ -1,5 +1,7 @@
 package ru.null_checkers.form_filling_screen.ui.formfilling
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.KeyEvent
@@ -11,7 +13,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import androidx.core.net.toUri
 import androidx.core.widget.doAfterTextChanged
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
@@ -25,9 +29,6 @@ import kotlinx.coroutines.launch
 import ru.null_checkers.form_filling_screen.R
 import ru.null_checkers.form_filling_screen.databinding.FragmentFormFillingBinding
 
-/**
- * @author Phantom2097
- */
 class FormFilling : Fragment(R.layout.fragment_form_filling) {
 
     private var _binding: FragmentFormFillingBinding? = null
@@ -181,10 +182,65 @@ class FormFilling : Fragment(R.layout.fragment_form_filling) {
         val addButton = buttonForAddImage
         val applyButton = buttonApplyForAnExhibition
         val addCardImage = addImageCard
+        val onlineFormButton = goToOnlineForm
 
         addImageFromLocal(addButton)
         addApplyButton(applyButton)
         addImageFromLocal(addCardImage)
+        addInternetFormButton(onlineFormButton)
+    }
+
+    private fun addInternetFormButton(view: View) {
+        view.setOnClickListener {
+            val formUrl = viewModel.goToOnlineForm()
+            val intent = Intent(Intent.ACTION_VIEW, formUrl.toUri())
+
+            // Диалог
+            createDialog(intent)
+        }
+    }
+
+    private fun createDialog(intent: Intent) {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Подтверждение")
+            .setMessage("Вы уверены, что хотите заполнить форму онлайн?\nЗаполненные поля сохранятся, но изображение придётся выбрать заново")
+            .setPositiveButton("OK") { _, _ ->
+                requireContext().startActivity(intent)
+            }
+            .setNegativeButton("Отмена") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(true)
+            .show()
+    }
+
+    private fun sendEmail(
+        name: String,
+        tgAccount: String,
+        file: MediaFile?
+    ) {
+        val text = "Участник: $name\nКонтакты: $tgAccount"
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            type = "message/rfc822"
+            val email = "exampleEmail@yandex.ru"
+            val subject = "Форма регистрации участника"
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
+            putExtra(Intent.EXTRA_SUBJECT, subject)
+            putExtra(Intent.EXTRA_TEXT, text)
+            file?.let {
+                putExtra(Intent.EXTRA_STREAM, it.uri)
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
+        }
+
+        val chooser = Intent.createChooser(intent, "Отправить письмо через...")
+
+        try {
+            requireContext().startActivity(chooser)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(requireContext(), "Не найдено почтовое приложение$e", Toast.LENGTH_SHORT)
+                .show()
+        }
     }
 
     private var isProcessing = false
@@ -195,7 +251,6 @@ class FormFilling : Fragment(R.layout.fragment_form_filling) {
     private fun addImageFromLocal(view: View) {
         view.setOnClickListener {
             if (!isProcessing) {
-//            showImagePickerBottomSheet()
                 isProcessing = true
                 openGallery()
             }
@@ -203,35 +258,16 @@ class FormFilling : Fragment(R.layout.fragment_form_filling) {
     }
 
     private val galleryLauncher = registerForActivityResult(
-        ActivityResultContracts.GetContent()
-    ) { uri: Uri? ->
-        isProcessing = false
-        uri?.let { imageUri ->
-            val fileName = DocumentFile.fromSingleUri(requireContext(), imageUri)?.name
-                ?: uri.lastPathSegment.toString()
-            viewModel.onItemClick(MediaFile(uri = imageUri, name = fileName))
-        }
-    }
+            ActivityResultContracts.GetContent()
+        ) { uri: Uri? ->
+            isProcessing = false
+            uri?.let { imageUri ->
+                val fileName = DocumentFile.fromSingleUri(requireContext(), imageUri)?.name
+                    ?: uri.lastPathSegment.toString()
+                viewModel.onItemClick(MediaFile(uri = imageUri, name = fileName))
 
-//    private fun getFileNameFromUri(uri: Uri): String? {
-//        return when (uri.scheme) {
-//            "content" -> getContentFileName(uri)
-//            "file" -> uri.lastPathSegment
-//            else -> null
-//        }
-//    }
-//
-//    private fun getContentFileName(uri: Uri): String? {
-//        return context?.contentResolver?.query(uri, null, null, null, null)?.use { cursor ->
-//            cursor.moveToFirst()
-//            val displayNameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
-//            if (displayNameIndex != -1) {
-//                cursor.getString(displayNameIndex)
-//            } else {
-//                null
-//            }
-//        }
-//    }
+            }
+        }
 
     private fun openGallery() {
         galleryLauncher.launch(GALLERY_LAUNCHER_FILTER)
@@ -242,18 +278,11 @@ class FormFilling : Fragment(R.layout.fragment_form_filling) {
      */
     private fun addApplyButton(view: View) {
         view.setOnClickListener {
+            val (name, tgAccount, file) = viewModel.getMedia()
+            sendEmail(name, tgAccount, file)
             Toast.makeText(requireContext(), "Нужно бы уже это сделать", Toast.LENGTH_SHORT).show()
         }
     }
-
-    /**
-     * Навигация к диалогу
-     */
-//    private fun showImagePickerBottomSheet() {
-//        viewModel.getMediaFiles(requireContext())
-//
-//        findNavController().navigate(R.id.action_formFilling_to_imagePickerBottomSheet)
-//    }
 
     override fun onDestroyView() {
         super.onDestroyView()
