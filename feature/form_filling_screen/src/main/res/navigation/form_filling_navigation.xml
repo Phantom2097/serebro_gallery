@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/form_filling_navigation"
+    app:startDestination="@id/formFilling">
+
+    <fragment
+        android:id="@+id/formFilling"
+        android:name="ru.null_checkers.form_filling_screen.ui.formfilling.FormFilling"
+        android:label="FormFilling"
+        tools:layout="@layout/fragment_form_filling">
+<!--        <action-->
+<!--            android:id="@+id/action_formFilling_to_imagePickerBottomSheet"-->
+<!--            app:destination="@id/imagePickerBottomSheet"-->
+<!--            />-->
+    </fragment>
+
+<!--    <dialog-->
+<!--        android:id="@+id/imagePickerBottomSheet"-->
+<!--        android:name="ru.null_checkers.form_filling_screen.ui.select_image_from_storage.bottom_sheet.ImagePickerBottomSheet"-->
+<!--        android:label="ImagePickerBottomSheet"-->
+<!--        tools:layout="@layout/select_image_from_storage" />-->
+
+</navigation>

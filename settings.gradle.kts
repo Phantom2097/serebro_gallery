@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "serebro_gallery"
 include(":app")
+include(":feature:form_filling_screen")
