@@ -28,29 +28,25 @@
 
         <ImageView
             android:id="@+id/iv_itemImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
             android:layout_gravity="center"
+            android:scaleType="centerCrop"
             android:src="@drawable/img" />
 
         <TextView
             android:id="@+id/tv_itemDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:alpha="1"
+            style="@style/Text.Golos.Small"
             android:gravity="center"
-            android:textSize="20sp"
-            android:textStyle="bold"
             tools:text="Date" />
 
         <TextView
             android:id="@+id/tv_itemName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:alpha="1"
-            android:gravity="center"
-            android:textSize="30sp"
-            android:textStyle="bold"
+            style="@style/Text.Golos.MiddleBeauty"
             tools:text="Name" />
 
         <TextView
@@ -58,8 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            style="@style/Text.Golos.Small"
             tools:text="Description" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -4,5 +4,4 @@ data class ExhibitionItem(
     val date: String,
     val name: String,
     val description: String,
-    val mainPhotoID: Int
-)
+    val afisha: String)

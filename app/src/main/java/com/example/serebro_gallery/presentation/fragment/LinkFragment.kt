@@ -29,8 +29,9 @@ class LinkFragment : Fragment() {
 
         val links = listOf(
             Link("Главная", R.id.mainFragment),
+            Link("О проекте", R.id.aboutProjectFragment),
+            Link("Контакты", R.id.contactsFragment),
             Link("Партнёры", R.id.partnersFragment),
-            Link("Контакты", R.id.mainFragment),
             Link("Профиль", R.id.profileFragment),
             Link("Принять участие", R.id.to_form_filling_graph)
         )

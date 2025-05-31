@@ -10,7 +10,7 @@ class ExhibitionDiffCallback : DiffUtil.ItemCallback<ExhibitionItem>() {
         oldItem: ExhibitionItem, newItem: ExhibitionItem
     ): Boolean {
         if (oldItem.javaClass != newItem.javaClass) return false
-        return oldItem.mainPhotoID == newItem.mainPhotoID
+        return oldItem.afisha == newItem.afisha
     }
 
     @SuppressLint("DiffUtilEquals")

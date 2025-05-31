@@ -21,6 +21,7 @@ import kotlin.getValue
 class MainFragment : Fragment(R.layout.fragment_main) {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
+
     private lateinit var adapter: ExhibitionAdapter
     val viewModel: MainViewModel by activityViewModels()
 
@@ -36,62 +37,46 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         adapter = ExhibitionAdapter().apply {
             setOnItemClickListener { item ->
-                handleItemClick(item)
+                viewModel.selectItem(item)
             }
         }
+
         binding.rcvExhibition.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = this@MainFragment.adapter
         }
-
-        loadData()
         setupObserver()
-    }
 
-    private fun loadData() {
-        val items = listOf(
-            ExhibitionItem(
-                "22 января 2023",
-                "Не зря тащил фотик в такую даль",
-                "Первая фотовыставка в 2023 году.",
-                R.drawable.img
-            ),
-            ExhibitionItem(
-                "27 ноября 2022",
-                "Абстракция",
-                "Первая фотовыставка в особняке «Едва знакомы»",
-                R.drawable.img
-            ),
-            ExhibitionItem(
-                "24 декабря 2022",
-                "Лучший кадр 2022",
-                "Новогодняя фотовыставка",
-                R.drawable.img
-            ),
-            ExhibitionItem(
-                "26 февраля 2023",
-                "Кадр, в который хочется вернуться",
-                "Первая фотовыставка в secret.gallery на Красном Октябре",
-                R.drawable.img
-            )
-        )
-
-        adapter.submitList(items)
-    }
-
-    private fun handleItemClick(item: ExhibitionItem) {
-        viewModel.selectItem(item)
-
+        if (viewModel.exhibitions.value.isNullOrEmpty()) {
+            println("!!! loading")
+            viewModel.loadExhibitions()
+        }
     }
 
     private fun setupObserver() {
-        viewModel.selectedItem.observe(viewLifecycleOwner) { item ->
+        viewModel.exhibitions.observe(viewLifecycleOwner) { exhibitions ->
+            exhibitions?.let {
+                adapter.submitList(it)
+            }
+
+            exhibitions.forEach {
+                println("""
+                   Выставка: ${it.name}
+                   Дата: ${it.date}
+                   Описание: ${it.description.take(50)}...
+                   ID фото: ${it.afisha}
+                   ${"-".repeat(50)}
+               """.trimIndent())
+            }
+
+        }
+
+        viewModel.currExhibition.observe(viewLifecycleOwner) { item ->
             item?.let {
                 if (findNavController().currentBackStackEntry?.destination?.id == R.id.mainFragment) {
-                    viewModel.setExhibition(item)
+                    viewModel.selectItem(item)
                     findNavController().navigate(R.id.action_mainFragment_to_exhibitionFragment)
                 }
             }
