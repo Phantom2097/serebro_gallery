@@ -1,0 +1,13 @@
+<resources>
+
+    // fragment_form_filling
+    <string name="buttonForAddImageDescription">Кнопка для добавления изображения</string>
+    <string name="selectImageFromStorageItemDescription">Image from local</string>
+    <string name="formFillingLogoText">Форма регистрации</string>
+    <string name="userNameFieldLayoutHint">Имя участника</string>
+    <string name="userTelegramFieldLayoutHint">Telegram участника</string>
+    <string name="textForAddImageText">Добавьте изображение</string>
+    <string name="buttonApplyForAnExhibitionText">Отправить форму по почте</string>
+    <string name="image_from_storage">Image From Storage</string>
+    <string name="goToOnlineFormText">Заполнить форму онлайн</string>
+</resources>

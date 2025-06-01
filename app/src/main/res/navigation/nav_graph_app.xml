@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_app"
     app:startDestination="@id/mainFragment">
 
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.serebro_gallery.presentation.fragment.MainFragment"
-        android:label="fragment_main">
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main">
 
         <action
             android:id="@+id/action_mainFragment_to_exhibitionFragment"
-            app:destination="@id/exhibitionFragment"/>
+            app:destination="@id/exhibitionFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/exhibitionFragment"
         android:name="com.example.serebro_gallery.presentation.fragment.ExhibitionFragment"
-        android:label="fragment_exhibition">
-    </fragment>
+        android:label="fragment_exhibition"
+        tools:layout="@layout/fragment_exhibition"/>
+
     <fragment
         android:id="@+id/linkFragment"
         android:name="com.example.serebro_gallery.presentation.fragment.LinkFragment"
-        android:label="fragment_link">
-    </fragment>
+        android:label="fragment_link"
+        tools:layout="@layout/fragment_link"/>
     <fragment
         android:id="@+id/aboutProjectFragment"
         android:name="com.example.serebro_gallery.presentation.fragment.AboutProjectFragment"
@@ -38,20 +41,36 @@
     <fragment
         android:id="@+id/partnersFragment"
         android:name="com.example.serebro_gallery.presentation.fragment.PartnersFragment"
-        android:label="fragment_link">
+        android:label="fragment_link"
+        tools:layout="@layout/fragment_partners">
     </fragment>
+
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.serebro_gallery.presentation.fragment.ProfileFragment"
-        android:label="fragment_link">
+        android:label="fragment_link"
+        tools:layout="@layout/fragment_profile">
     </fragment>
     <action
         android:id="@+id/action_global_mainFragment"
         app:destination="@id/mainFragment"
         app:popUpTo="@id/mainFragment"
-        app:popUpToInclusive="true"/>
+        app:popUpToInclusive="true" />
+
     <action
         android:id="@+id/action_global_linkFragment"
         app:destination="@id/linkFragment"
         app:popUpTo="@id/linkFragment" />
+
+    <include
+        android:id="@+id/form_filling_graph"
+        app:graph="@navigation/form_filling_navigation"
+        />
+
+    <action
+        android:id="@+id/to_form_filling_graph"
+        app:destination="@id/form_filling_navigation"
+        app:popUpTo="@id/mainFragment"
+        app:popUpToInclusive="true" />
+
 </navigation>
