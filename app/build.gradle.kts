@@ -65,4 +65,6 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
 
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
+
 }

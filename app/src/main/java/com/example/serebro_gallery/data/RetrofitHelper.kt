@@ -11,9 +11,9 @@ object RetrofitHelper {
         return creatRetrofit().create(ExhibitionApi::class.java)
     }
 
-    fun creatPartnersRetrofit(): PartnersApi {
-        return creatRetrofit().create(PartnersApi::class.java)
-    }
+    //fun creatPrizeRetrofit(): PartnersApi {
+    //    return creatRetrofit().create(PartnersApi::class.java)
+    //}
 
     fun creatRetrofit(): Retrofit {
         val loggingInterceptor = HttpLoggingInterceptor().apply {

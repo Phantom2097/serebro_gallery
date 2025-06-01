@@ -43,6 +43,8 @@ class MainViewModel : ViewModel() {
 
         return postList?.select("div.post-container.arrow-container")?.mapNotNull { item ->
             try {
+                val link = item.select(".post-miniature").attr("href")
+                //println("!!! $link")
                 val info = item.select(".post-caption")
                 val name = info.select(".post-title").text()
                 //println("Найдено имя: $name")
@@ -55,7 +57,7 @@ class MainViewModel : ViewModel() {
                     .attr("data-src")
                     .substringBefore("https:/")
                 //println("Найдена ссылка: $mainPhotoID")
-                ExhibitionItem(date, name, description, mainPhotoID)
+                ExhibitionItem(date, name, description, mainPhotoID, link)
             } catch (e: Exception) {
                 e.printStackTrace()
                 null

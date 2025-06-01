@@ -5,25 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/Text.Golos.BigBeauty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Мой профиль"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/name"
-        android:layout_width="224dp"
-        android:layout_height="63dp"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:inputType="text"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
         android:text="Имя"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.176"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/avatarImageView" />
 
     <EditText
         android:id="@+id/surname"
-        android:layout_width="230dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
         android:inputType="text"
         android:text="Фамилия"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +41,7 @@
         android:id="@+id/myphoto"
         android:layout_width="185dp"
         android:layout_height="38dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="20dp"
         android:gravity="center_vertical"
         android:text="Мои фото:"
         android:textSize="20dp"
@@ -46,14 +52,13 @@
         app:layout_constraintTop_toBottomOf="@+id/surname" />
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="107dp"
-        android:layout_height="111dp"
+        android:id="@+id/avatarImageView"
+        android:layout_width="170dp"
+        android:layout_height="167dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
         app:srcCompat="@drawable/bez_foto_3" />
 
     <Button
@@ -64,6 +69,5 @@
         android:text="Сохранить"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
