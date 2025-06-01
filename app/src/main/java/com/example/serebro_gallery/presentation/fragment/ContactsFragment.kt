@@ -1,15 +1,15 @@
 package com.example.serebro_gallery.presentation.fragment
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.Toast
+import androidx.core.net.toUri
+import androidx.fragment.app.Fragment
 import com.example.serebro_gallery.R
+import com.example.serebro_gallery.presentation.activity.MainActivity
 
 class ContactsFragment : Fragment() {
 
@@ -36,9 +36,11 @@ class ContactsFragment : Fragment() {
         val urlDzen = "https://dzen.ru/serebro_gallery"
 
         fun openUrl(url: String) {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            val intent = Intent(Intent.ACTION_VIEW, url.toUri())
             startActivity(intent)
         }
+
+        (requireActivity() as? MainActivity)?.updateToolbarTitle("Контакты")
 
         llVk.setOnClickListener {
             openUrl(urlVk)

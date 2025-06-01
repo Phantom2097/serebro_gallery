@@ -1,7 +1,6 @@
 package com.example.serebro_gallery.presentation.fragment
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import com.example.serebro_gallery.R
 
@@ -53,13 +53,12 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 return@setOnClickListener
             }
 
-            sharedPreferences.edit()
-                .putString("NAME", name)
-                .putString("SURNAME", surname)
-                .apply()
+            sharedPreferences.edit {
+                putString("NAME", name)
+                    .putString("SURNAME", surname)
+            }
 
             Toast.makeText(requireContext(), "Данные сохранены", Toast.LENGTH_SHORT).show()
-
         }
     }
 

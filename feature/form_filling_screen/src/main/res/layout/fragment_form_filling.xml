@@ -1,168 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/form_filling"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clickable="true"
-    android:focusable="true"
-    tools:context=".ui.formfilling.FormFilling">
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:text="@string/formFillingLogoText"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/userNameFieldLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:hint="@string/userNameFieldLayoutHint"
-        app:boxStrokeColor="@color/black"
-        app:endIconMode="clear_text"
-        app:helperText="*Обязательно"
-        app:helperTextTextColor="@color/purple_700"
-        app:hintTextColor="@color/design_default_color_on_secondary"
-        app:layout_constraintBottom_toTopOf="@+id/userTelegramFieldLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintWidth_max="480dp"
-        app:startIconDrawable="@drawable/rounded_person_24">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/userNameField"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textCapWords"
-            android:lines="1"
-            android:privateImeOptions="actionNext"
-            android:textSize="24sp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/userTelegramFieldLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:hint="@string/userTelegramFieldLayoutHint"
-        app:boxStrokeColor="@color/black"
-        app:endIconMode="clear_text"
-        app:helperText="*Обязательно"
-        app:helperTextTextColor="@color/purple_700"
-        app:hintTextColor="@color/design_default_color_on_secondary"
-        app:layout_constraintBottom_toTopOf="@id/addImageCard"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/userNameFieldLayout"
-        app:layout_constraintWidth_max="480dp"
-        app:prefixText="\@"
-        app:prefixTextAppearance="@style/CustomPrefixTextAppearance"
-        app:startIconDrawable="@drawable/telegram_svgrepo_com">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/userTelegramField"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:imeOptions="actionDone"
-            android:inputType="textNoSuggestions"
-            android:lines="1"
-            android:textSize="24sp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/addImageCard"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/form_filling"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
         android:clickable="true"
         android:focusable="true"
-        app:cardCornerRadius="8dp"
-        app:layout_constraintBottom_toTopOf="@id/buttonApplyForAnExhibition"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userTelegramFieldLayout">
+        tools:context=".ui.formfilling.FormFilling">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="@string/formFillingLogoText"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/userNameFieldLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:hint="@string/userNameFieldLayoutHint"
+            app:boxStrokeColor="@color/black"
+            app:endIconMode="clear_text"
+            app:helperText="*Обязательно"
+            app:helperTextTextColor="@color/purple_700"
+            app:hintTextColor="@color/design_default_color_on_secondary"
+            app:layout_constraintBottom_toTopOf="@+id/userTelegramFieldLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintWidth_max="480dp"
+            app:startIconDrawable="@drawable/rounded_person_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/userNameField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:lines="1"
+                android:privateImeOptions="actionNext"
+                android:textSize="24sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/userTelegramFieldLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:hint="@string/userTelegramFieldLayoutHint"
+            app:boxStrokeColor="@color/black"
+            app:endIconMode="clear_text"
+            app:helperText="*Обязательно"
+            app:helperTextTextColor="@color/purple_700"
+            app:hintTextColor="@color/design_default_color_on_secondary"
+            app:layout_constraintBottom_toTopOf="@id/addImageCard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/userNameFieldLayout"
+            app:layout_constraintWidth_max="480dp"
+            app:prefixText="\@"
+            app:prefixTextAppearance="@style/CustomPrefixTextAppearance"
+            app:startIconDrawable="@drawable/telegram_svgrepo_com">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/userTelegramField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:inputType="textNoSuggestions"
+                android:lines="1"
+                android:textSize="24sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/addImageCard"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintBottom_toTopOf="@id/buttonApplyForAnExhibition"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userTelegramFieldLayout">
 
-            <ImageButton
-                android:id="@+id/buttonForAddImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="8dp"
-                android:layout_marginStart="8dp"
-                android:backgroundTint="@color/design_default_color_on_primary"
-                android:contentDescription="@string/buttonForAddImageDescription"
-                android:src="@drawable/rounded_add_photo"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/textForAddImage"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/textForAddImage"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
-                android:maxLines="4"
-                android:text="@string/textForAddImageText"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/buttonForAddImage"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageButton
+                    android:id="@+id/buttonForAddImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="8dp"
+                    android:layout_marginStart="8dp"
+                    android:backgroundTint="@color/design_default_color_on_primary"
+                    android:contentDescription="@string/buttonForAddImageDescription"
+                    android:src="@drawable/rounded_add_photo"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/textForAddImage"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/textForAddImage"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:maxLines="4"
+                    android:text="@string/textForAddImageText"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/buttonForAddImage"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonApplyForAnExhibition"
-        style="@style/TextAppearance.AppCompat.Widget.Button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        android:backgroundTint="@color/black"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="12dp"
-        android:text="@string/buttonApplyForAnExhibitionText"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:cornerRadius="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/goToOnlineForm" />
+        </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/goToOnlineForm"
-        style="@style/TextAppearance.AppCompat.Widget.Button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:backgroundTint="@color/black"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="12dp"
-        android:text="@string/goToOnlineFormText"
-        android:textColor="@color/white"
-        app:cornerRadius="8dp"
-        app:layout_constraintBottom_toTopOf="@id/buttonApplyForAnExhibition"
-        app:layout_constraintEnd_toEndOf="@id/buttonApplyForAnExhibition"
-        app:layout_constraintStart_toStartOf="@id/buttonApplyForAnExhibition"
-        app:layout_constraintTop_toBottomOf="@id/addImageCard"
-        app:layout_constraintVertical_chainStyle="packed" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonApplyForAnExhibition"
+            style="@style/TextAppearance.AppCompat.Widget.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:backgroundTint="@color/black"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="12dp"
+            android:text="@string/buttonApplyForAnExhibitionText"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:cornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/goToOnlineForm" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/goToOnlineForm"
+            style="@style/TextAppearance.AppCompat.Widget.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="12dp"
+            android:text="@string/goToOnlineFormText"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:cornerRadius="8dp"
+            app:layout_constraintBottom_toTopOf="@id/buttonApplyForAnExhibition"
+            app:layout_constraintEnd_toEndOf="@id/buttonApplyForAnExhibition"
+            app:layout_constraintStart_toStartOf="@id/buttonApplyForAnExhibition"
+            app:layout_constraintTop_toBottomOf="@id/addImageCard"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

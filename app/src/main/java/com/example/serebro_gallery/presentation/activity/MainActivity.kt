@@ -11,10 +11,13 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.findNavController
 import com.example.serebro_gallery.R
 import com.example.serebro_gallery.databinding.ActivityMainBinding
+import com.example.serebro_gallery.databinding.AppActionBarBinding
 import com.example.serebro_gallery.presentation.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var toolbarBinding: AppActionBarBinding
+
     val viewModel: MainViewModel by viewModels()
     private var lastFragmentId: Int? = null
 
@@ -31,17 +34,32 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        setupButtons()
         redefineOnBackPressed()
+
+        setupToolBar()
+    }
+
+
+    private fun setupToolBar() {
+        toolbarBinding = AppActionBarBinding.inflate(layoutInflater, binding.toolbar, false)
+
+        binding.toolbar.addView(toolbarBinding.root)
+
+        setupButtons()
+    }
+
+    // Возможно так нельзя, нужен какой-нибудь интерфейс или ещё что-то
+    fun updateToolbarTitle(title: String) {
+        toolbarBinding.toolbarTitle.text = title
     }
 
     private fun setupButtons() {
-        binding.btnBackToMain.setOnClickListener {
+        toolbarBinding.btnBackToMain.setOnClickListener {
             Log.d("NAV", "Back button clicked")
             navigateToMain()
         }
 
-        binding.btnMenu.setOnClickListener {
+        toolbarBinding.btnMenu.setOnClickListener {
             val navController = findNavController(R.id.nav_host)
 
             if (navController.currentDestination?.id == R.id.linkFragment) {
