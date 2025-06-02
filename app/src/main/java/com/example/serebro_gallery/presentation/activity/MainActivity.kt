@@ -59,12 +59,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupButtons() {
-        binding.btnBackToMain.setOnClickListener {
+        toolbarBinding.btnBackToMain.setOnClickListener {
             Log.d("NAV", "Back button clicked")
             navigateToMain()
         }
 
-        binding.btnMenu.setOnClickListener {
+        toolbarBinding.btnMenu.setOnClickListener {
             val navController = findNavController(R.id.nav_host)
 
             if (navController.currentDestination?.id == R.id.linkFragment) {
@@ -137,6 +137,7 @@ class MainActivity : AppCompatActivity() {
     private val repository by lazy { PhotoRepository(database.photoDao()) }
 
     // Фабрика для ViewModel
+    @Suppress("UNCHECKED_CAST")
     private val viewModelFactory by lazy {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {

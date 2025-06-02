@@ -2,9 +2,10 @@ package com.example.serebro_gallery.presentation.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.serebro_gallery.R
 import com.example.serebro_gallery.databinding.FragmentExhibitionBinding
@@ -13,8 +14,6 @@ import com.example.serebro_gallery.presentation.activity.MainActivity
 import com.example.serebro_gallery.presentation.adapter.PrizePhotoAdapter
 import com.example.serebro_gallery.presentation.viewmodel.ExhibitionViewModel
 import com.example.serebro_gallery.presentation.viewmodel.MainViewModel
-import com.example.serebro_gallery.presentation.viewmodel.ProfileViewModel
-import kotlin.getValue
 
 class ExhibitionFragment : Fragment(R.layout.fragment_exhibition) {
     private lateinit var binding: FragmentExhibitionBinding
@@ -34,9 +33,9 @@ class ExhibitionFragment : Fragment(R.layout.fragment_exhibition) {
         init()
 
         val exhibition = mainViewModel.currExhibition.value
-        binding.tvTitle.setText(exhibition?.name)
+        binding.tvTitle.text = exhibition?.name
 
-        (requireActivity() as? MainActivity)?.updateToolbarTitle(exhibition?.name ?: "Выставка")
+        (requireActivity() as? MainActivity)?.updateToolbarTitle("Выставка")
 
         Glide.with(this)
             .load(exhibition?.afisha)
@@ -44,7 +43,7 @@ class ExhibitionFragment : Fragment(R.layout.fragment_exhibition) {
             .error(R.drawable.logo_black)
             .into(binding.ivMainPhoto)
         println("!!! ${exhibition?.afisha}")
-        binding.tvDescription.setText(exhibition?.description)
+        binding.tvDescription.text = exhibition?.description
         binding.ivFirstPlace.setImageResource(R.drawable.photo)
 
         photoViewModel.loadPhotos(exhibition?.link)
@@ -58,6 +57,10 @@ class ExhibitionFragment : Fragment(R.layout.fragment_exhibition) {
                """.trimIndent())
             }
 
+        }
+
+        binding.swipeFeedButton.setOnClickListener {
+            findNavController().navigate(R.id.action_exhibitionFragment_to_swipeFeedFragment)
         }
     }
 
