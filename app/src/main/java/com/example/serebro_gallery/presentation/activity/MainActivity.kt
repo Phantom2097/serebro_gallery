@@ -14,12 +14,13 @@ import androidx.navigation.findNavController
 import com.example.serebro_gallery.R
 import com.example.serebro_gallery.data.AppDatabase
 import com.example.serebro_gallery.databinding.ActivityMainBinding
-import com.example.serebro_gallery.databinding.AppActionBarBinding
 import com.example.serebro_gallery.domain.repository.PhotoRepository
 import com.example.serebro_gallery.presentation.viewmodel.MainViewModel
 import com.example.serebro_gallery.presentation.viewmodel.PhotoViewModel
+import ru.null_checkers.ui.databinding.AppActionBarBinding
+import ru.null_checkers.ui.toolbar.ToolbarController
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ToolbarController {
     private lateinit var binding: ActivityMainBinding
     private lateinit var toolbarBinding: AppActionBarBinding
 
@@ -46,10 +47,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun setupToolBar() {
-        toolbarBinding = AppActionBarBinding.inflate(layoutInflater, binding.toolbar, false)
-
-        binding.toolbar.addView(toolbarBinding.root)
-
+        createToolbar()
         setupButtons()
     }
 
@@ -149,5 +147,14 @@ class MainActivity : AppCompatActivity() {
     // Функция для доступа к ViewModel из фрагментов
     fun getSharedPhotoViewModel(): PhotoViewModel {
         return ViewModelProvider(this, viewModelFactory)[PhotoViewModel::class.java]
+    }
+
+    override fun createToolbar() {
+        toolbarBinding = AppActionBarBinding.inflate(layoutInflater, binding.toolbar, false)
+        binding.toolbar.addView(toolbarBinding.root)
+    }
+
+    override fun setTitle(title: String) {
+        toolbarBinding.toolbarTitle.text = title
     }
 }

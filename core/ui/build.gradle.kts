@@ -1,18 +1,17 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-
-    id("com.google.devtools.ksp")
 }
 
 android {
-    namespace = "ru.null_checkers.form_filling_screen"
+    namespace = "ru.null_checkers.ui"
     compileSdk = 35
 
     defaultConfig {
         minSdk = 24
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -38,44 +37,16 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:ui"))
 
     // Android
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
 
-    // Coroutines
-    implementation(libs.kotlinx.coroutines.android)
+    // UI
+    implementation(libs.material)
 
-    // Dagger
-    implementation(libs.dagger)
-    ksp(libs.dagger.compiler)
-
-    // Glide
-    implementation(libs.glide)
-
-    // Navigation
-    implementation(libs.androidx.navigation.fragment)
-    implementation(libs.androidx.navigation.ui)
-
-//    // OkHttp
-//    implementation(libs.logging.interceptor)
-
-    // Retrofit
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-
-    // Test
+    // Tests
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    // UI
-    implementation(libs.material)
-    implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.fragment.ktx)
-
-    // ViewModel
-    implementation(libs.androidx.lifecycle.livedata.ktx)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 }

@@ -1,24 +1,16 @@
 package com.example.serebro_gallery.presentation.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.serebro_gallery.R
-import com.example.serebro_gallery.data.AppDatabase
-import com.example.serebro_gallery.domain.PhotoDao
-import com.example.serebro_gallery.presentation.adapter.PhotoAdapter
-import com.example.serebro_gallery.domain.models.Photo
-import com.example.serebro_gallery.domain.repository.PhotoRepository
 import com.example.serebro_gallery.presentation.activity.MainActivity
+import com.example.serebro_gallery.presentation.adapter.PhotoAdapter
 import com.example.serebro_gallery.presentation.viewmodel.PhotoViewModel
 import kotlinx.coroutines.launch
 

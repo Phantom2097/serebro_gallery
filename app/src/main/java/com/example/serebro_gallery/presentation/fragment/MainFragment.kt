@@ -10,9 +10,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.serebro_gallery.R
 import com.example.serebro_gallery.databinding.FragmentMainBinding
-import com.example.serebro_gallery.presentation.activity.MainActivity
 import com.example.serebro_gallery.presentation.adapter.ExhibitionAdapter
 import com.example.serebro_gallery.presentation.viewmodel.MainViewModel
+import ru.null_checkers.ui.toolbar.ToolbarController
 
 class MainFragment : Fragment(R.layout.fragment_main) {
     private var _binding: FragmentMainBinding? = null
@@ -39,7 +39,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
         }
 
-        (requireActivity() as? MainActivity)?.updateToolbarTitle("Выставки")
+        setupTitle()
 
         binding.rcvExhibition.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -50,6 +50,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         if (viewModel.exhibitions.value.isNullOrEmpty()) {
             viewModel.loadExhibitions()
         }
+    }
+
+    private fun setupTitle() {
+        (requireActivity() as? ToolbarController)?.setTitle("Выставки")
     }
 
     private fun setupObserver() {
