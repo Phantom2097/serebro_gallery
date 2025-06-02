@@ -33,28 +33,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:common"))
-    implementation(project(":core:ui"))
 
-    // Android
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-
-    // Glide
-    implementation(libs.glide)
-
-    // Room
-    implementation(libs.androidx.room.ktx)
-    implementation(libs.androidx.room.runtime)
-
-    // ViewModel
-    implementation(libs.androidx.lifecycle.livedata.ktx)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-
-    // UI
     implementation(libs.material)
-
-    // Test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

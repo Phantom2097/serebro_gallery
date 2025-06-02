@@ -34,9 +34,6 @@ android {
 
 dependencies {
 
-    implementation( libs.androidx.room.ktx)
-    implementation(libs.androidx.room.runtime)
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

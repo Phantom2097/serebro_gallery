@@ -4,9 +4,6 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import ru.null_checkers.common.factory.OnItemClick
-import ru.null_checkers.common.models.MediaFile
-import ru.null_checkers.common.models.UserForm
 import ru.null_checkers.form_filling_screen.domain.use_cases_impls.SendDataToForm
 
 /**

@@ -1,4 +1,4 @@
-package ru.null_checkers.user_profile
+package com.example.serebro_gallery.presentation.fragment
 
 import android.os.Bundle
 import android.view.View
@@ -8,10 +8,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.serebro_gallery.R
 import com.example.serebro_gallery.presentation.activity.MainActivity
+import com.example.serebro_gallery.presentation.adapter.PhotoAdapter
+import com.example.serebro_gallery.presentation.viewmodel.PhotoViewModel
 import kotlinx.coroutines.launch
-import ru.null_checkers.common.setup_view_model.PhotoViewModel
-import ru.null_checkers.user_profile.recycler.PhotoAdapter
 
 class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
 

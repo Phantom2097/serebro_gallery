@@ -51,7 +51,7 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="ru.null_checkers.user_profile.ProfileFragment"
+        android:name="com.example.serebro_gallery.presentation.fragment.ProfileFragment"
         android:label="fragment_link"
         tools:layout="@layout/fragment_profile">
     </fragment>
@@ -78,12 +78,12 @@
         app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="ru.null_checkers.user_profile.FavoriteFragment"
+        android:name="com.example.serebro_gallery.presentation.fragment.FavoriteFragment"
         android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite" />
     <fragment
         android:id="@+id/galleryFragment"
-        android:name="ru.null_checkers.user_profile.GalleryFragment"
+        android:name="com.example.serebro_gallery.presentation.fragment.GalleryFragment"
         android:label="fragment_gallery"
         tools:layout="@layout/fragment_gallery"/>
     <fragment
