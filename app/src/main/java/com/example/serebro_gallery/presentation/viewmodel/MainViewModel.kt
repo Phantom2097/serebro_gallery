@@ -7,12 +7,18 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import com.example.serebro_gallery.data.RetrofitHelper
 import com.example.serebro_gallery.domain.models.ExhibitionItem
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
 
 class MainViewModel : ViewModel() {
-    private val _exhibitions = MutableLiveData<List<ExhibitionItem>>() //MutableLiveData<ExhibitionItem?>(null)
+    private val _exhibitions = MutableLiveData<List<ExhibitionItem>>()
     val exhibitions: LiveData<List<ExhibitionItem>> = _exhibitions
+
+    private val _state = MutableLiveData<ExhibitionsState>()
+    val state: LiveData<ExhibitionsState> = _state
 
     private val _currExhibition = MutableLiveData<ExhibitionItem?>(null)
     val currExhibition: LiveData<ExhibitionItem?> = _currExhibition
@@ -26,13 +32,25 @@ class MainViewModel : ViewModel() {
 
     fun loadExhibitions() {
         println("!!! загрузка выставок")
-        viewModelScope.launch {
+        _state.value = ExhibitionsState.Loading
+        viewModelScope.launch(Dispatchers.IO) {
             try {
+                delay(500)
                 val htmlContent = RetrofitHelper.creatExhibitionRetrofit().getExhibitionsPage()
                 _exhibitions.postValue(parseExhibitions(htmlContent))
+
+                withContext(Dispatchers.Main) {
+                    _state.value = exhibitions.value?.let { ExhibitionsState.Success(it) }
+                }
             } catch (e: Exception) {
                 println("!!! Error processing request: ${e.message}")
                 e.printStackTrace()
+
+                withContext(Dispatchers.Main) {
+                    _state.value = ExhibitionsState.Error(
+                        e.message ?: "Произошла неизвестная ошибка"
+                    )
+                }
             }
         }
     }

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
 import com.example.serebro_gallery.R
+import com.example.serebro_gallery.domain.use_case.openUrl
 
 class ContactsFragment : Fragment() {
 
@@ -35,19 +36,14 @@ class ContactsFragment : Fragment() {
         val urlTelegram = "https://t.me/serebro_gallery"
         val urlDzen = "https://dzen.ru/serebro_gallery"
 
-        fun openUrl(url: String) {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-            startActivity(intent)
-        }
-
         llVk.setOnClickListener {
-            openUrl(urlVk)
+            openUrl(urlVk, requireContext())
         }
         llTelegram.setOnClickListener {
-            openUrl(urlTelegram)
+            openUrl(urlTelegram, requireContext())
         }
         llDzen.setOnClickListener {
-            openUrl(urlDzen)
+            openUrl(urlDzen, requireContext())
         }
     }
 }

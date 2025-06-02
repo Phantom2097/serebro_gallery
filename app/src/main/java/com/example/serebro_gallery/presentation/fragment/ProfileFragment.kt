@@ -31,8 +31,8 @@ import androidx.fragment.app.FragmentManager
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private lateinit var nameEditText: EditText
     private lateinit var surnameEditText: EditText
+    private lateinit var tgEditText: EditText
 
-    private lateinit var tg: EditText
     private lateinit var tabs: TabLayout
 
     private lateinit var avatarImage: ImageView
@@ -51,7 +51,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         nameEditText = view.findViewById(R.id.name)
         surnameEditText = view.findViewById(R.id.surname)
-        tg = view.findViewById(R.id.tg)
+        tgEditText = view.findViewById(R.id.tg)
         savebutton = view.findViewById(R.id.savebutton)
         avatarImage = view.findViewById(R.id.avatarImageView)
 
@@ -67,6 +67,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         savebutton.setOnClickListener {
             val name = nameEditText.text.toString().trim()
             val surname = surnameEditText.text.toString().trim()
+            val tg = tgEditText.text.toString().trim()
 
             if (name.isBlank() || surname.isBlank()) {
                 Toast.makeText(requireContext(), "Заполните все поля", Toast.LENGTH_SHORT).show()
@@ -76,6 +77,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             sharedPreferences.edit()
                 .putString("NAME", name)
                 .putString("SURNAME", surname)
+                .putString("TG", tg)
                 .apply()
 
             Toast.makeText(requireContext(), "Данные сохранены", Toast.LENGTH_SHORT).show()
@@ -110,10 +112,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private fun setupViewMode() {
         nameEditText.setText(sharedPreferences.getString("NAME", ""))
         surnameEditText.setText(sharedPreferences.getString("SURNAME", ""))
+        tgEditText.setText(sharedPreferences.getString("TG", ""))
 
-        nameEditText.hint = "Имя"
-        surnameEditText.hint = "Фамилия"
-        tg.hint = "Tg"
+        //nameEditText.hint = "Имя"
+        //surnameEditText.hint = "Фамилия"
+        //tgEditText.hint = "Tg"
 
         sharedPreferences.getString("AVATAR_URI", null)?.let { uriString ->
             loadImageWithGlide(Uri.parse(uriString))
@@ -125,9 +128,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             .load(uri)
             .circleCrop()
             .placeholder(R.drawable.logo_white)
-            .error(R.drawable.logo_white)
+            .error(R.drawable.bez_foto_3)
             .into(avatarImage)
-        tg.hint = "Tg"
     }
     private fun setTabs(){
         println("!!! start")
