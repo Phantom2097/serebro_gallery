@@ -22,10 +22,19 @@ import com.example.serebro_gallery.R
 import com.example.serebro_gallery.presentation.viewmodel.ProfileViewModel
 import ru.null_checkers.form_filling_screen.ui.formfilling.FormFillingViewModel
 import ru.null_checkers.form_filling_screen.ui.formfilling.MediaFile
+import com.example.serebro_gallery.databinding.FragmentLinkBinding
+import com.example.serebro_gallery.databinding.FragmentMainBinding
+import com.example.serebro_gallery.databinding.FragmentProfileBinding
+import com.google.android.material.tabs.TabLayout
+import androidx.fragment.app.FragmentManager
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private lateinit var nameEditText: EditText
     private lateinit var surnameEditText: EditText
+
+    private lateinit var tg: EditText
+    private lateinit var tabs: TabLayout
+
     private lateinit var avatarImage: ImageView
     private lateinit var savebutton: Button
     private lateinit var sharedPreferences: SharedPreferences
@@ -42,12 +51,14 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         nameEditText = view.findViewById(R.id.name)
         surnameEditText = view.findViewById(R.id.surname)
+        tg = view.findViewById(R.id.tg)
         savebutton = view.findViewById(R.id.savebutton)
         avatarImage = view.findViewById(R.id.avatarImageView)
 
         sharedPreferences = requireContext().getSharedPreferences("ProfilePrefs", Context.MODE_PRIVATE)
 
         setupViewMode()
+        setTabs()
 
         avatarImage.setOnClickListener {
             openGallery()
@@ -102,11 +113,13 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         nameEditText.hint = "Имя"
         surnameEditText.hint = "Фамилия"
+        tg.hint = "Tg"
 
         sharedPreferences.getString("AVATAR_URI", null)?.let { uriString ->
             loadImageWithGlide(Uri.parse(uriString))
         }
     }
+
     private fun loadImageWithGlide(uri: Uri) {
         Glide.with(this)
             .load(uri)
@@ -114,5 +127,28 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             .placeholder(R.drawable.logo_white)
             .error(R.drawable.logo_white)
             .into(avatarImage)
+        tg.hint = "Tg"
+    }
+    private fun setTabs(){
+        println("!!! start")
+        childFragmentManager.beginTransaction().replace(R.id.fragmentContainer, FavoriteFragment.newInstance()).commit()
+        println("!!! replaced")
+        tabs = view?.findViewById(R.id.tabs)!!
+        tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                when (tab.position) {
+                    0 -> replaceFragment(FavoriteFragment.newInstance())
+                    1 -> replaceFragment(GalleryFragment.newInstance())
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
+    }
+    private fun replaceFragment(fragment: Fragment) {
+        childFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, fragment)
+            .commit()
     }
 }
