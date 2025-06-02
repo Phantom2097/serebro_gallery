@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">swipe_feed</string>
-    <string name="like_button">like button</string>
-    <string name="next_button">Next button</string>
-    <string name="authorNameText">Автор фотографии</string>
-</resources>

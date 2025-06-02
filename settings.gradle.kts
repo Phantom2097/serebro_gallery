@@ -22,6 +22,7 @@ dependencyResolutionManagement {
 rootProject.name = "serebro_gallery"
 include(":app")
 include(":feature:form_filling_screen")
-include(":feature:swipe_feed")
 include(":core:database")
 include(":core:ui")
+include(":feature:project_information")
+include(":core:common")

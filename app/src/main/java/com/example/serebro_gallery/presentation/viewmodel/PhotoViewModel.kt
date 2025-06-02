@@ -20,6 +20,7 @@ class PhotoViewModel(private val repository: PhotoRepository) : ViewModel() {
     val favorite: StateFlow<List<Photo>> = _favorite.asStateFlow()
 
     var currPhoto = MutableLiveData<Photo>()
+
 //    fun toggleFavorite(photo: Photo) {
 //        viewModelScope.launch {
 //            repository.toggleFavorite(photo.toEntity())
@@ -31,7 +32,8 @@ class PhotoViewModel(private val repository: PhotoRepository) : ViewModel() {
             repository.addPhoto(item.toEntity())
         }
     }
-    fun getGalleryPhotos(){
+
+    fun getGalleryPhotos() {
         viewModelScope.launch {
             repository.getGalleryPhotosFlow()
                 .collect { photos ->
