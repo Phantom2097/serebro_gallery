@@ -21,6 +21,8 @@ import com.example.serebro_gallery.presentation.viewmodel.PhotoViewModel
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     val viewModel: MainViewModel by viewModels()
+    private var lastFragmentId: Int? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -45,8 +47,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnMenu.setOnClickListener {
-            Log.d("NAV", "Menu button clicked")
-            navigateToMenu()
+            val navController = findNavController(R.id.nav_host)
+
+            if (navController.currentDestination?.id == R.id.linkFragment) {
+                if (lastFragmentId != null) {
+                    navController.popBackStack()
+                    navController.navigate(lastFragmentId!!)
+                } else {
+                    navController.popBackStack()
+                }
+            } else {
+                navigateToMenu()
+            }
         }
     }
 
@@ -54,7 +66,6 @@ class MainActivity : AppCompatActivity() {
         try {
             viewModel.clearSelectedItem()
             val navController = findNavController(R.id.nav_host)
-
             navController.popBackStack(R.id.mainFragment, inclusive = false)
             navController.navigate(R.id.mainFragment)
 
@@ -67,6 +78,10 @@ class MainActivity : AppCompatActivity() {
         try {
             viewModel.clearSelectedItem()
             val navController = findNavController(R.id.nav_host)
+
+            if (navController.currentDestination?.id != R.id.linkFragment) {
+                lastFragmentId = navController.currentDestination?.id
+            }
 
             navController.popBackStack(R.id.linkFragment, inclusive = false)
             navController.navigate(R.id.linkFragment)

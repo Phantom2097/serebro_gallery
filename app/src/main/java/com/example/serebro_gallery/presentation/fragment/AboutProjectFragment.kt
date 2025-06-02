@@ -5,8 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.serebro_gallery.R
+import com.facebook.shimmer.ShimmerFrameLayout
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class AboutProjectFragment : Fragment() {
 
@@ -25,8 +31,19 @@ class AboutProjectFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val webView = view.findViewById<WebView>(R.id.webView)
+        val shimmerView = view.findViewById<ShimmerFrameLayout>(R.id.shimmerView)
+
         webView.settings.javaScriptEnabled = true
 
+        webView.webViewClient = object : WebViewClient() {
+            override fun onPageFinished(view: WebView?, url: String?) {
+                shimmerView.stopShimmer()
+                shimmerView.visibility = View.GONE
+                webView.visibility = View.VISIBLE
+            }
+        }
+
+        shimmerView.startShimmer()
         val embedCode = """
              <iframe 
                 src="https://vk.com/video_ext.php?oid=-213066984&id=456239018&hash=abc123&hd=2" 

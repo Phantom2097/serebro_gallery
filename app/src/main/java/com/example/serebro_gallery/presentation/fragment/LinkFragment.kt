@@ -44,6 +44,7 @@ class LinkFragment : Fragment() {
                 findNavController().navigate(link.destinationId)
             }
         }
+
     }
 
     override fun onDestroyView() {

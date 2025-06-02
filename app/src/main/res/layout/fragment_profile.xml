@@ -5,6 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/Text.Golos.BigBeauty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Мой профиль"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/tg"
         android:layout_width="224dp"
@@ -25,9 +35,8 @@
         android:inputType="text"
         android:text="Имя"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.176"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/avatarImageView" />
 
     <EditText
         android:id="@+id/surname"
@@ -41,15 +50,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
+
+
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="107dp"
-        android:layout_height="111dp"
+        android:id="@+id/avatarImageView"
+        android:layout_width="170dp"
+        android:layout_height="167dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
         app:srcCompat="@drawable/bez_foto_3" />
 
     <Button
@@ -59,7 +69,6 @@
         android:text="Сохранить"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.tabs.TabLayout
