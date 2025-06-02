@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import com.example.serebro_gallery.R
+import com.example.serebro_gallery.domain.use_case.openUrl
 import ru.null_checkers.ui.toolbar.ToolbarController
 
 class ContactsFragment : Fragment() {

@@ -22,16 +22,6 @@
                 android:layout_height="wrap_content">
 
 
-                <TextView
-                    android:id="@+id/tv_title"
-                    style="@style/Text.Golos.BigBeauty"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Мой профиль"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/nameLayout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -132,7 +122,7 @@
                     android:layout_marginTop="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/bez_foto_3" />
 
                 <Button
