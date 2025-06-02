@@ -90,11 +90,6 @@ class MainActivity : AppCompatActivity() {
         return findNavController(R.id.nav_host).navigateUp() || super.onSupportNavigateUp()
     }
 
-    /**
-     * Переопределение нажатия кнопки назад
-     *
-     * На главном экране выходит из приложения, на других возвращает назад по графу навигации
-     */
     private fun redefineOnBackPressed() {
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

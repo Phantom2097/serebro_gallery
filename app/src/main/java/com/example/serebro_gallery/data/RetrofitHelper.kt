@@ -11,9 +11,9 @@ object RetrofitHelper {
         return creatRetrofit().create(ExhibitionApi::class.java)
     }
 
-    //fun creatPrizeRetrofit(): PartnersApi {
-    //    return creatRetrofit().create(PartnersApi::class.java)
-    //}
+    fun creatPhotosRetrofit(): PhotoApi {
+        return creatRetrofit().create(PhotoApi::class.java)
+    }
 
     fun creatRetrofit(): Retrofit {
         val loggingInterceptor = HttpLoggingInterceptor().apply {
@@ -25,7 +25,7 @@ object RetrofitHelper {
             .addInterceptor { chain ->
                 try {
                     val request = chain.request()
-                    //println("Request URL: ${request.url}")
+                    println("Request URL: ${request.url}")
                     val response = chain.proceed(request)
                     response
                 } catch (e: Exception) {
@@ -39,7 +39,7 @@ object RetrofitHelper {
         val retrofit = Retrofit.Builder()
             .baseUrl(base_url)
             //.client(okHttpClient)
-            .addConverterFactory(ScalarsConverterFactory.create()) // Для получения HTML как String
+            .addConverterFactory(ScalarsConverterFactory.create())
             .build()
 
         return retrofit

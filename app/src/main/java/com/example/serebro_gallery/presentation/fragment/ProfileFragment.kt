@@ -3,6 +3,7 @@ package com.example.serebro_gallery.presentation.fragment
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +12,16 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.serebro_gallery.R
+import com.example.serebro_gallery.presentation.viewmodel.ProfileViewModel
+import ru.null_checkers.form_filling_screen.ui.formfilling.FormFillingViewModel
+import ru.null_checkers.form_filling_screen.ui.formfilling.MediaFile
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private lateinit var nameEditText: EditText
@@ -41,7 +50,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         setupViewMode()
 
         avatarImage.setOnClickListener {
-            //openGallery
+            openGallery()
         }
 
         savebutton.setOnClickListener {
@@ -63,11 +72,47 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
     }
 
+    private val viewModel by activityViewModels<ProfileViewModel>()
+    private val galleryLauncher = registerForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        uri?.let { imageUri ->
+            sharedPreferences.edit()
+                .putString("AVATAR_URI", imageUri.toString())
+                .apply()
+
+            loadImageWithGlide(imageUri)
+
+            val fileName = DocumentFile.fromSingleUri(requireContext(), imageUri)?.name
+                ?: uri.lastPathSegment.toString()
+            viewModel.onItemClick(MediaFile(uri = imageUri, name = fileName))
+
+        }
+    }
+    private fun openGallery() {
+        galleryLauncher.launch(GALLERY_LAUNCHER_FILTER)
+    }
+    private companion object {
+        private const val GALLERY_LAUNCHER_FILTER = "image/*"
+    }
+
     private fun setupViewMode() {
         nameEditText.setText(sharedPreferences.getString("NAME", ""))
         surnameEditText.setText(sharedPreferences.getString("SURNAME", ""))
 
         nameEditText.hint = "Имя"
         surnameEditText.hint = "Фамилия"
+
+        sharedPreferences.getString("AVATAR_URI", null)?.let { uriString ->
+            loadImageWithGlide(Uri.parse(uriString))
+        }
+    }
+    private fun loadImageWithGlide(uri: Uri) {
+        Glide.with(this)
+            .load(uri)
+            .circleCrop()
+            .placeholder(R.drawable.logo_white)
+            .error(R.drawable.logo_white)
+            .into(avatarImage)
     }
 }

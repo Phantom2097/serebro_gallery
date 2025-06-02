@@ -13,13 +13,16 @@ import com.example.serebro_gallery.R
 import com.example.serebro_gallery.databinding.FragmentExhibitionBinding
 import com.example.serebro_gallery.domain.models.PrizePhoto
 import com.example.serebro_gallery.presentation.adapter.PrizePhotoAdapter
+import com.example.serebro_gallery.presentation.viewmodel.ExhibitionViewModel
 import com.example.serebro_gallery.presentation.viewmodel.MainViewModel
+import com.example.serebro_gallery.presentation.viewmodel.ProfileViewModel
 import kotlin.getValue
 
 class ExhibitionFragment : Fragment(R.layout.fragment_exhibition) {
     private lateinit var binding: FragmentExhibitionBinding
     private lateinit var adapter: PrizePhotoAdapter
     val mainViewModel: MainViewModel by activityViewModels()
+    private val photoViewModel by activityViewModels<ExhibitionViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,9 +42,22 @@ class ExhibitionFragment : Fragment(R.layout.fragment_exhibition) {
             .placeholder(R.drawable.logo_black)
             .error(R.drawable.logo_black)
             .into(binding.ivMainPhoto)
-        println("!!! ${exhibition?.afisha}")
+
         binding.tvDescription.setText(exhibition?.description)
         binding.ivFirstPlace.setImageResource(R.drawable.photo)
+
+        photoViewModel.loadPhotos(exhibition?.link)
+        photoViewModel.photos.observe(viewLifecycleOwner) { photo ->
+
+            photo.forEach {
+                println("""
+                   Автор: ${it.name}
+                   Ссылка фото: ${it.link}
+                   ${"-".repeat(50)}
+               """.trimIndent())
+            }
+
+        }
     }
 
     private fun init() {
