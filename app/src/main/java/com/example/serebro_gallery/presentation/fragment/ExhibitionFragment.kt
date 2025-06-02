@@ -5,8 +5,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.example.serebro_gallery.R
 import com.example.serebro_gallery.databinding.FragmentExhibitionBinding
@@ -35,7 +33,7 @@ class ExhibitionFragment : Fragment(R.layout.fragment_exhibition) {
             .error(R.drawable.logo_black)
             .into(binding.ivMainPhoto)
 
-        binding.tvDescription.setText(exhibition?.description)
+        binding.tvDescription.text = exhibition?.description
 
         photoViewModel.loadPhotos(exhibition?.link)
 
