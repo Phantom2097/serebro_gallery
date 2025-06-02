@@ -92,6 +92,8 @@ class MainActivity : AppCompatActivity(), ToolbarController {
 
     private fun navigateToMenu() {
         try {
+            viewModel.clearSelectedItem()
+            
             val navController = findNavController(R.id.nav_host)
 
             if (navController.currentDestination?.id != R.id.linkFragment) {
