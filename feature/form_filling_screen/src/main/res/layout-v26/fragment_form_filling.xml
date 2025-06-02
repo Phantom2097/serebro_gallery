@@ -78,7 +78,7 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/addImageCard"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:clickable="true"
@@ -87,7 +87,8 @@
             app:layout_constraintBottom_toTopOf="@id/buttonApplyForAnExhibition"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userTelegramFieldLayout">
+            app:layout_constraintTop_toBottomOf="@+id/userTelegramFieldLayout"
+            app:layout_constraintWidth_max="480dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -139,7 +140,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/goToOnlineForm" />
+            app:layout_constraintTop_toBottomOf="@id/goToOnlineForm"
+            app:layout_constraintWidth_max="480dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/goToOnlineForm"
@@ -157,7 +159,8 @@
             app:layout_constraintEnd_toEndOf="@id/buttonApplyForAnExhibition"
             app:layout_constraintStart_toStartOf="@id/buttonApplyForAnExhibition"
             app:layout_constraintTop_toBottomOf="@id/addImageCard"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintWidth_max="480dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

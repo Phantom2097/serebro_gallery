@@ -12,165 +12,158 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/nameLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:hint="@string/userNameFieldLayoutHint"
+                app:boxStrokeColor="@color/black"
+                app:endIconMode="clear_text"
+                app:helperText="*Обязательно"
+                app:helperTextTextColor="@color/purple_700"
+                app:hintTextColor="@color/design_default_color_on_secondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/avatarImageView"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintWidth_max="480dp"
+                app:startIconDrawable="@drawable/rounded_person_24">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:lines="1"
+                    android:privateImeOptions="actionNext"
+                    android:textSize="24sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/surnameLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:hint="@string/userSurnameFieldLayoutHint"
+                app:boxStrokeColor="@color/black"
+                app:endIconMode="clear_text"
+                app:helperText="*Обязательно"
+                app:helperTextTextColor="@color/purple_700"
+                app:hintTextColor="@color/design_default_color_on_secondary"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nameLayout"
+
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintWidth_max="480dp"
+                app:startIconDrawable="@drawable/rounded_person_24">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/surname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:lines="1"
+                    android:privateImeOptions="actionNext"
+                    android:textSize="24sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/telegramLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:hint="@string/userTelegramFieldLayoutHint"
+                app:boxStrokeColor="@color/black"
+                app:endIconMode="clear_text"
+                app:helperTextTextColor="@color/purple_700"
+                app:hintTextColor="@color/design_default_color_on_secondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/surnameLayout"
+                app:layout_constraintWidth_max="480dp"
+                app:prefixText="\@"
+                app:prefixTextAppearance="@style/CustomPrefixTextAppearance"
+                app:startIconDrawable="@drawable/telegram_svgrepo_com">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:inputType="textNoSuggestions"
+                    android:lines="1"
+                    android:textSize="24sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <ImageView
+                android:id="@+id/avatarImageView"
+                android:layout_width="170dp"
+                android:layout_height="167dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/bez_foto_3" />
+
+            <Button
+                android:id="@+id/savebutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:backgroundTint="@android:color/black"
+                android:text="Сохранить"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/telegramLayout" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/savebutton"
+                app:tabIndicatorColor="@color/black"
+                app:tabSelectedTextColor="@color/black"
+                app:tabTextColor="@color/black">
 
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/nameLayout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:hint="@string/userNameFieldLayoutHint"
-                    app:boxStrokeColor="@color/black"
-                    app:endIconMode="clear_text"
-                    app:helperText="*Обязательно"
-                    app:helperTextTextColor="@color/purple_700"
-                    app:hintTextColor="@color/design_default_color_on_secondary"
-
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/avatarImageView"
-
-                    app:layout_constraintVertical_chainStyle="packed"
-                    app:layout_constraintWidth_max="480dp"
-                    app:startIconDrawable="@drawable/rounded_person_24">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textCapWords"
-                        android:lines="1"
-                        android:privateImeOptions="actionNext"
-                        android:textSize="24sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/surnameLayout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:hint="@string/userSurnameFieldLayoutHint"
-                    app:boxStrokeColor="@color/black"
-                    app:endIconMode="clear_text"
-                    app:helperText="*Обязательно"
-                    app:helperTextTextColor="@color/purple_700"
-                    app:hintTextColor="@color/design_default_color_on_secondary"
-
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/nameLayout"
-
-                    app:layout_constraintVertical_chainStyle="packed"
-                    app:layout_constraintWidth_max="480dp"
-                    app:startIconDrawable="@drawable/rounded_person_24">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/surname"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textCapWords"
-                        android:lines="1"
-                        android:privateImeOptions="actionNext"
-                        android:textSize="24sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/telegramLayout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:hint="@string/userTelegramFieldLayoutHint"
-                    app:boxStrokeColor="@color/black"
-                    app:endIconMode="clear_text"
-                    app:helperTextTextColor="@color/purple_700"
-                    app:hintTextColor="@color/design_default_color_on_secondary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/surnameLayout"
-                    app:layout_constraintWidth_max="480dp"
-                    app:prefixText="\@"
-                    app:prefixTextAppearance="@style/CustomPrefixTextAppearance"
-                    app:startIconDrawable="@drawable/telegram_svgrepo_com">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tg"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:imeOptions="actionDone"
-                        android:inputType="textNoSuggestions"
-                        android:lines="1"
-                        android:textSize="24sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-                <ImageView
-                    android:id="@+id/avatarImageView"
-                    android:layout_width="170dp"
-                    android:layout_height="167dp"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/bez_foto_3" />
-
-                <Button
-                    android:id="@+id/savebutton"
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/favorite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:backgroundTint="@android:color/black"
-                    android:text="Сохранить"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/telegramLayout" />
+                    android:text="Избранное" />
 
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabs"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/savebutton"
-                    app:tabIndicatorColor="@color/black"
-                    app:tabSelectedTextColor="@color/black"
-                    app:tabTextColor="@color/black">
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/saved"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Галерея" />
+            </com.google.android.material.tabs.TabLayout>
 
-                    <com.google.android.material.tabs.TabItem
-                        android:id="@+id/favorite"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Избранное" />
+            <FrameLayout
+                android:id="@+id/fragmentContainer"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tabs"
+                app:layout_constraintWidth_max="480dp"/>
 
-                    <com.google.android.material.tabs.TabItem
-                        android:id="@+id/saved"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Галерея" />
-                </com.google.android.material.tabs.TabLayout>
-
-                <FrameLayout
-                    android:id="@+id/fragmentContainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tabs" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </ScrollView>

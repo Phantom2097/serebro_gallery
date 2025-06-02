@@ -41,6 +41,4 @@ class LoadFromLocalStorage(
     private fun openGallery() {
         galleryLauncher.launch(GALLERY_LAUNCHER_FILTER)
     }
-
-
 }

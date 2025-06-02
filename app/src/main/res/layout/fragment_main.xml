@@ -43,7 +43,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Дата выставки"/>
+                    android:text="Дата выставки" />
 
                 <TextView
                     style="@style/Text.Golos.MiddleBeauty"
@@ -51,18 +51,21 @@
                     android:layout_height="wrap_content"
                     android:text="Название выставки" />
             </LinearLayout>
+
         </androidx.cardview.widget.CardView>
+
     </com.facebook.shimmer.ShimmerFrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcv_exhibition"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"/>
+        app:layout_constraintWidth_max="480dp" />
 
     <TextView
         android:id="@+id/ops"
