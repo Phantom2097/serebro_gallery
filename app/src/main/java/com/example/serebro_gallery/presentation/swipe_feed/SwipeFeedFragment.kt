@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.serebro_gallery.databinding.FragmentSwipeFeedBinding
 import com.example.serebro_gallery.domain.models.Photo
@@ -25,7 +29,14 @@ class SwipeFeedFragment : Fragment() {
     private lateinit var photoViewModel: PhotoViewModel
     private val exhibitionViewModel: ExhibitionViewModel by activityViewModels()
 
-    private var currentPhotoIndex = 0
+    /**
+     * Индекс фотографии из списка
+     */
+    private var currentPhotoIndex = START_INDEX
+
+    /**
+     *  Список всех фотографий, который получается из photoViewModel
+     */
     private var photoList: List<PhotoItem> = emptyList()
 
     override fun onCreateView(
@@ -39,10 +50,14 @@ class SwipeFeedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        photoViewModel = (activity as MainActivity).getSharedPhotoViewModel()
+        initViewModel()
 
         initButtons()
         observeViewModel()
+    }
+
+    private fun initViewModel() {
+        photoViewModel = (activity as MainActivity).getSharedPhotoViewModel()
     }
 
     private fun initButtons() = with(binding) {
@@ -54,15 +69,19 @@ class SwipeFeedFragment : Fragment() {
         }
 
         nextButton.setOnClickListener {
+            if (currentPhotoIndex < photoList.size)
             showNextPhoto()
         }
     }
 
     private fun observeViewModel() {
         lifecycleScope.launch {
-            launch {
-                exhibitionViewModel.photos.observe(viewLifecycleOwner) { photos ->
-                    photoList = photos
+            lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                launch {
+                    exhibitionViewModel.photos.observe(viewLifecycleOwner) { photos ->
+                        photoList = photos
+                        showNextPhoto()
+                    }
                 }
             }
         }
@@ -83,16 +102,41 @@ class SwipeFeedFragment : Fragment() {
     private fun showNextPhoto() {
         if (photoList.isEmpty()) return
 
-        currentPhotoIndex = (currentPhotoIndex + 1) % photoList.size
+        currentPhotoIndex++
+
+        if (currentPhotoIndex >= photoList.size) {
+            showEndOfListDialog()
+            return
+        }
+
         showCurrentPhoto()
 
         binding.swipedImage.animate()
-            .alpha(0f)
-            .setDuration(200)
+            .alpha(IMAGE_ALPHA_OFF)
+            .setDuration(IMAGE_DURATION)
             .withEndAction {
-                binding.swipedImage.alpha = 1f
+                binding.swipedImage.alpha = IMAGE_ALPHA_ON
             }
             .start()
+    }
+
+    private fun showEndOfListDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Конец галереи")
+            .setMessage("Вы просмотрели все изображения. Что хотите сделать?")
+            .setPositiveButton("Начать заново") { _, _ ->
+                resetGallery()
+            }
+            .setNegativeButton("Выйти") { _, _ ->
+                findNavController().popBackStack()
+            }
+            .setCancelable(false)
+            .show()
+    }
+
+    private fun resetGallery() {
+        currentPhotoIndex = START_INDEX
+        showNextPhoto()
     }
 
     private fun PhotoItem.toPhoto() = Photo(
@@ -104,5 +148,13 @@ class SwipeFeedFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private companion object {
+        private const val START_INDEX = -1
+
+        private const val IMAGE_ALPHA_ON = 1f
+        private const val IMAGE_DURATION = 200L
+        private const val IMAGE_ALPHA_OFF = 0f
     }
 }
