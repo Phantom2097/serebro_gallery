@@ -2,6 +2,8 @@
     <style name="Theme.Serebro_gallery" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:fontFamily">@font/golos_text_vf</item>
         <item name="android:textSize">16sp</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="Text.Golos.Small" parent="TextAppearance.AppCompat">
@@ -19,6 +21,10 @@
         <item name="android:fontFamily">@font/good_vibes_pro</item>
         <item name="android:textSize">33sp</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="ToolbarStyle" parent="Widget.MaterialComponents.Toolbar">
+        <item name="contentInsetStart">4dp</item>
     </style>
 
 </resources>

@@ -26,10 +26,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.launch
-import ru.null_checkers.form_filling_screen.R
 import ru.null_checkers.form_filling_screen.databinding.FragmentFormFillingBinding
 
-class FormFilling : Fragment(R.layout.fragment_form_filling) {
+class FormFilling : Fragment() {
 
     private var _binding: FragmentFormFillingBinding? = null
     val binding get() = _binding!!
@@ -65,6 +64,10 @@ class FormFilling : Fragment(R.layout.fragment_form_filling) {
         )
     }
 
+//    private fun setupTittle() {
+//
+//    }
+
     private fun redefineOnBackPressed() {
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -87,7 +90,6 @@ class FormFilling : Fragment(R.layout.fragment_form_filling) {
             }
         }
     }
-
 
     /**
      * Функция обеспечивает наблюдение за изменениями данных во View Model
@@ -185,8 +187,8 @@ class FormFilling : Fragment(R.layout.fragment_form_filling) {
         val onlineFormButton = goToOnlineForm
 
         addImageFromLocal(addButton)
-        addApplyButton(applyButton)
         addImageFromLocal(addCardImage)
+        addApplyButton(applyButton)
         addInternetFormButton(onlineFormButton)
     }
 

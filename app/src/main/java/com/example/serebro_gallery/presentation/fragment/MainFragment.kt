@@ -1,22 +1,18 @@
 package com.example.serebro_gallery.presentation.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.serebro_gallery.R
 import com.example.serebro_gallery.databinding.FragmentMainBinding
-import com.example.serebro_gallery.domain.models.ExhibitionItem
-import com.example.serebro_gallery.domain.models.PrizePhoto
+import com.example.serebro_gallery.presentation.activity.MainActivity
 import com.example.serebro_gallery.presentation.adapter.ExhibitionAdapter
-import com.example.serebro_gallery.presentation.adapter.PrizePhotoAdapter
 import com.example.serebro_gallery.presentation.viewmodel.MainViewModel
-import kotlin.getValue
 
 class MainFragment : Fragment(R.layout.fragment_main) {
     private var _binding: FragmentMainBinding? = null
@@ -42,6 +38,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 viewModel.selectItem(item)
             }
         }
+
+        (requireActivity() as? MainActivity)?.updateToolbarTitle("Выставки")
 
         binding.rcvExhibition.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -87,7 +85,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         _binding = null
     }
 
-    companion object {
-        fun newInstance() = MainFragment()
-    }
+//    companion object {
+//        fun newInstance() = MainFragment()
+//    }
 }

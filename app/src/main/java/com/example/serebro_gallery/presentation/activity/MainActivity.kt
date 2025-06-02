@@ -14,12 +14,15 @@ import androidx.navigation.findNavController
 import com.example.serebro_gallery.R
 import com.example.serebro_gallery.data.AppDatabase
 import com.example.serebro_gallery.databinding.ActivityMainBinding
+import com.example.serebro_gallery.databinding.AppActionBarBinding
 import com.example.serebro_gallery.domain.repository.PhotoRepository
 import com.example.serebro_gallery.presentation.viewmodel.MainViewModel
 import com.example.serebro_gallery.presentation.viewmodel.PhotoViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var toolbarBinding: AppActionBarBinding
+
     val viewModel: MainViewModel by viewModels()
     private var lastFragmentId: Int? = null
 
@@ -36,17 +39,32 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        setupButtons()
         redefineOnBackPressed()
+
+        setupToolBar()
+    }
+
+
+    private fun setupToolBar() {
+        toolbarBinding = AppActionBarBinding.inflate(layoutInflater, binding.toolbar, false)
+
+        binding.toolbar.addView(toolbarBinding.root)
+
+        setupButtons()
+    }
+
+    // Возможно так нельзя, нужен какой-нибудь интерфейс или ещё что-то
+    fun updateToolbarTitle(title: String) {
+        toolbarBinding.toolbarTitle.text = title
     }
 
     private fun setupButtons() {
-        binding.btnBackToMain.setOnClickListener {
+        toolbarBinding.btnBackToMain.setOnClickListener {
             Log.d("NAV", "Back button clicked")
             navigateToMain()
         }
 
-        binding.btnMenu.setOnClickListener {
+        toolbarBinding.btnMenu.setOnClickListener {
             val navController = findNavController(R.id.nav_host)
 
             if (navController.currentDestination?.id == R.id.linkFragment) {
@@ -95,6 +113,11 @@ class MainActivity : AppCompatActivity() {
         return findNavController(R.id.nav_host).navigateUp() || super.onSupportNavigateUp()
     }
 
+    /**
+     * Переопределение нажатия кнопки назад
+     *
+     * На главном экране выходит из приложения, на других возвращает назад по графу навигации
+     */
     private fun redefineOnBackPressed() {
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -114,6 +137,7 @@ class MainActivity : AppCompatActivity() {
     private val repository by lazy { PhotoRepository(database.photoDao()) }
 
     // Фабрика для ViewModel
+    @Suppress("UNCHECKED_CAST")
     private val viewModelFactory by lazy {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
