@@ -18,7 +18,6 @@
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/form_filling_screen" />
             <option value="$PROJECT_DIR$/feature/project_information" />
-            <option value="$PROJECT_DIR$/feature/user_profile" />
           </set>
         </option>
       </GradleProjectSettings>

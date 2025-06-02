@@ -9,10 +9,7 @@ import ru.null_checkers.form_filling_screen.domain.use_cases_impls.SendDataToFor
 /**
  * @author Phantom2097
  */
-class FormFillingViewModel(
-//    private val showImagesFromLocalStorage: ShowImagesFromLocalStorage = ShowImagesFromLocalStorageUseCase(),
-//    private val pickImageFromLocalStorage: PickImageFromLocalStorage = PickImageFromLocalStorageUseCase()
-) : ViewModel(), OnItemClick {
+class FormFillingViewModel() : ViewModel(), OnItemClick {
 
     private var _userFieldsState = MutableStateFlow<UserForm>(UserForm())
     val userFieldsState = _userFieldsState.asStateFlow()
