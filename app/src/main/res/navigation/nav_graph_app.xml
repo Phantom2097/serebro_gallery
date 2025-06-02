@@ -33,7 +33,7 @@
         tools:layout="@layout/fragment_link"/>
     <fragment
         android:id="@+id/aboutProjectFragment"
-        android:name="ru/null_checkers/project_information/AboutProjectFragment.kt"
+        android:name="ru.null_checkers.project_information.AboutProjectFragment"
         android:label="fragment_about">
     </fragment>
     <fragment
