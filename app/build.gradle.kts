@@ -1,6 +1,10 @@
+import org.gradle.kotlin.dsl.implementation
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-kapt")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -75,6 +79,14 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
 
+
+    implementation ("androidx.room:room-runtime:2.7.1")
+    implementation( "androidx.room:room-ktx:2.7.1")
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
     implementation("com.facebook.shimmer:shimmer:0.5.0")
 
 }

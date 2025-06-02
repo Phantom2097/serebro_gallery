@@ -24,7 +24,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     private lateinit var adapter: ExhibitionAdapter
     val viewModel: MainViewModel by activityViewModels()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
