@@ -1,4 +1,4 @@
-package ru.null_checkers.common.models
+package com.example.serebro_gallery.domain.models
 
 data class Photo(
     val id: Long,

@@ -1,12 +1,12 @@
-package ru.null_checkers.user_profile.recycler
+package com.example.serebro_gallery.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import ru.null_checkers.common.models.Photo
-import ru.null_checkers.user_profile.R
-import ru.null_checkers.user_profile.recycler.callback.PhotoDiffCallback
-import ru.null_checkers.user_profile.recycler.holder.PhotoViewHolder
+import com.example.serebro_gallery.R
+import com.example.serebro_gallery.common.utils.PhotoDiffCallback
+import com.example.serebro_gallery.domain.models.Photo
+import com.example.serebro_gallery.presentation.holder.PhotoViewHolder
 
 class PhotoAdapter() :
     ListAdapter<Photo, PhotoViewHolder>(PhotoDiffCallback()) {

@@ -1,4 +1,4 @@
-package ru.null_checkers.user_profile
+package com.example.serebro_gallery.presentation.fragment
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -12,12 +12,16 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.edit
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
+import com.example.serebro_gallery.R
+import com.example.serebro_gallery.presentation.viewmodel.ProfileViewModel
 import com.google.android.material.tabs.TabLayout
 import ru.null_checkers.form_filling_screen.ui.formfilling.MediaFile
+import androidx.core.net.toUri
 import ru.null_checkers.ui.toolbar.ToolbarController
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
@@ -122,8 +126,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         Glide.with(this)
             .load(uri)
             .circleCrop()
-            .placeholder(ru.null_checkers.ui.R.drawable.logo_white)
-            .error(ru.null_checkers.ui.R.drawable.bez_foto_3)
+            .placeholder(R.drawable.logo_white)
+            .error(R.drawable.bez_foto_3)
             .into(avatarImage)
     }
     private fun setTabs(){

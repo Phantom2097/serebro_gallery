@@ -1,11 +1,11 @@
-package ru.null_checkers.user_profile.recycler.holder
+package com.example.serebro_gallery.presentation.holder
 
 import android.view.View
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import ru.null_checkers.common.models.Photo
-import ru.null_checkers.user_profile.R
+import com.example.serebro_gallery.R
+import com.example.serebro_gallery.domain.models.Photo
 
 class PhotoViewHolder(
     itemView: View
