@@ -1,9 +1,6 @@
-import org.gradle.kotlin.dsl.implementation
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-kapt")
     id("com.google.devtools.ksp")
 }
 
@@ -45,6 +42,7 @@ android {
 dependencies {
     // Modules
     implementation(project(":feature:form_filling_screen"))
+    implementation(project(":core:ui"))
 
     // ViewModel
     implementation(libs.androidx.lifecycle.livedata.ktx)

@@ -26,10 +26,11 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.launch
-import ru.null_checkers.form_filling_screen.R
 import ru.null_checkers.form_filling_screen.databinding.FragmentFormFillingBinding
+import ru.null_checkers.ui.R
+import ru.null_checkers.ui.toolbar.ToolbarController
 
-class FormFilling : Fragment(R.layout.fragment_form_filling) {
+class FormFilling : Fragment() {
 
     private var _binding: FragmentFormFillingBinding? = null
     val binding get() = _binding!!
@@ -47,6 +48,8 @@ class FormFilling : Fragment(R.layout.fragment_form_filling) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setTitle()
+
         observeFields()
         redefineOnBackPressed()
         initButtons()
@@ -62,6 +65,12 @@ class FormFilling : Fragment(R.layout.fragment_form_filling) {
             requireActivity(),
             permissions,
             0
+        )
+    }
+
+    private fun setTitle() {
+        (requireActivity() as? ToolbarController)?.setTitle(
+            getString(R.string.formFillingLogoText)
         )
     }
 
@@ -87,7 +96,6 @@ class FormFilling : Fragment(R.layout.fragment_form_filling) {
             }
         }
     }
-
 
     /**
      * Функция обеспечивает наблюдение за изменениями данных во View Model
@@ -185,8 +193,8 @@ class FormFilling : Fragment(R.layout.fragment_form_filling) {
         val onlineFormButton = goToOnlineForm
 
         addImageFromLocal(addButton)
-        addApplyButton(applyButton)
         addImageFromLocal(addCardImage)
+        addApplyButton(applyButton)
         addInternetFormButton(onlineFormButton)
     }
 
@@ -258,16 +266,16 @@ class FormFilling : Fragment(R.layout.fragment_form_filling) {
     }
 
     private val galleryLauncher = registerForActivityResult(
-            ActivityResultContracts.GetContent()
-        ) { uri: Uri? ->
-            isProcessing = false
-            uri?.let { imageUri ->
-                val fileName = DocumentFile.fromSingleUri(requireContext(), imageUri)?.name
-                    ?: uri.lastPathSegment.toString()
-                viewModel.onItemClick(MediaFile(uri = imageUri, name = fileName))
+        ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        isProcessing = false
+        uri?.let { imageUri ->
+            val fileName = DocumentFile.fromSingleUri(requireContext(), imageUri)?.name
+                ?: uri.lastPathSegment.toString()
+            viewModel.onItemClick(MediaFile(uri = imageUri, name = fileName))
 
-            }
         }
+    }
 
     private fun openGallery() {
         galleryLauncher.launch(GALLERY_LAUNCHER_FILTER)

@@ -1,16 +1,13 @@
 package com.example.serebro_gallery.presentation.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.serebro_gallery.domain.entity.PhotoEntity
 import com.example.serebro_gallery.domain.models.Photo
 import com.example.serebro_gallery.domain.repository.PhotoRepository
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.all
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
@@ -23,12 +20,12 @@ class PhotoViewModel(private val repository: PhotoRepository) : ViewModel() {
     val favorite: StateFlow<List<Photo>> = _favorite.asStateFlow()
 
     var currPhoto = MutableLiveData<Photo>()
-    fun toggleFavorite(photo: Photo) {
-        viewModelScope.launch {
-            repository.toggleFavorite(photo.toEntity())
-            getFavorite()
-        }
-    }
+//    fun toggleFavorite(photo: Photo) {
+//        viewModelScope.launch {
+//            repository.toggleFavorite(photo.toEntity())
+//            getFavorite()
+//        }
+//    }
     fun addItem(item: Photo) {
         viewModelScope.launch {
             repository.addPhoto(item.toEntity())

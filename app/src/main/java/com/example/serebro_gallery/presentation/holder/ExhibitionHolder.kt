@@ -1,15 +1,12 @@
 package com.example.serebro_gallery.presentation.holder
 
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.serebro_gallery.R
 import com.example.serebro_gallery.databinding.ExhibitionItemBinding
 import com.example.serebro_gallery.domain.models.ExhibitionItem
-import com.example.serebro_gallery.domain.models.PrizePhoto
 
-class ExhibitionHolder(viewItem: View) : RecyclerView.ViewHolder(viewItem) {
-    val binding = ExhibitionItemBinding.bind(viewItem)
+class ExhibitionHolder(binding: ExhibitionItemBinding) : RecyclerView.ViewHolder(binding.root) {
     var itemDate = binding.tvItemDate
     val itemName = binding.tvItemName
     val itemDescription = binding.tvItemDescription

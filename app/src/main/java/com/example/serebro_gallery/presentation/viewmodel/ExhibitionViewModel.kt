@@ -62,5 +62,4 @@ class ExhibitionViewModel : ViewModel() {
             }
         } ?: emptyList()
     }
-
 }

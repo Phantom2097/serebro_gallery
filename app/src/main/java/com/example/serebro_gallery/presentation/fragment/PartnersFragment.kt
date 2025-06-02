@@ -1,7 +1,6 @@
 package com.example.serebro_gallery.presentation.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -10,18 +9,14 @@ import androidx.constraintlayout.widget.ConstraintSet.Constraint
 import androidx.fragment.app.Fragment
 import com.example.serebro_gallery.R
 import com.example.serebro_gallery.domain.use_case.openUrl
+import ru.null_checkers.ui.toolbar.ToolbarController
 
 class PartnersFragment : Fragment(R.layout.fragment_partners) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_partners, container, false)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setupTitle()
 
         val llSkanim = view.findViewById<ConstraintLayout>(R.id.ll_skanim)
         val llIpfl = view.findViewById<ConstraintLayout>(R.id.ll_ipfl)
@@ -45,5 +40,9 @@ class PartnersFragment : Fragment(R.layout.fragment_partners) {
         llMStore.setOnClickListener {
             openUrl(urlMstore, requireContext())
         }
+    }
+
+    private fun setupTitle() {
+        (requireActivity() as? ToolbarController)?.setTitle("Партнёры и друзья")
     }
 }

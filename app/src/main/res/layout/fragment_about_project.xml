@@ -14,16 +14,6 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tv_title"
-            style="@style/Text.Golos.BigBeauty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="О проекте"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
             android:id="@+id/tv_history"
             style="@style/Text.Golos.MiddleBeauty"
             android:layout_width="wrap_content"
@@ -32,7 +22,7 @@
             android:layout_marginBottom="35dp"
             android:text="История проекта"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/tv_history_1"

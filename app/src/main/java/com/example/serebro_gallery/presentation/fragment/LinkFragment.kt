@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.serebro_gallery.R
 import com.example.serebro_gallery.databinding.FragmentLinkBinding
 import com.example.serebro_gallery.domain.models.Link
+import com.example.serebro_gallery.presentation.activity.MainActivity
 import com.example.serebro_gallery.presentation.adapter.LinkAdapter
 
 class LinkFragment : Fragment() {
@@ -36,13 +37,14 @@ class LinkFragment : Fragment() {
             Link("Принять участие", R.id.to_form_filling_graph)
         )
 
+        (requireActivity() as? MainActivity)?.updateToolbarTitle("")
+
         binding.rvLinks.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = LinkAdapter(links) { link ->
                 findNavController().navigate(link.destinationId)
             }
         }
-
     }
 
     override fun onDestroyView() {

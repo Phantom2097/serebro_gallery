@@ -1,5 +1,6 @@
 package com.example.serebro_gallery.presentation.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,12 +8,9 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import com.example.serebro_gallery.R
 import com.facebook.shimmer.ShimmerFrameLayout
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import ru.null_checkers.ui.toolbar.ToolbarController
 
 class AboutProjectFragment : Fragment() {
 
@@ -27,11 +25,14 @@ class AboutProjectFragment : Fragment() {
         return view
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val webView = view.findViewById<WebView>(R.id.webView)
         val shimmerView = view.findViewById<ShimmerFrameLayout>(R.id.shimmerView)
+
+        (requireActivity() as? ToolbarController)?.setTitle("О проекте")
 
         webView.settings.javaScriptEnabled = true
 

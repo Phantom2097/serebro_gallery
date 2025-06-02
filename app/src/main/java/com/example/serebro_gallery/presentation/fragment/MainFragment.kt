@@ -1,25 +1,23 @@
 package com.example.serebro_gallery.presentation.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.serebro_gallery.R
 import com.example.serebro_gallery.databinding.FragmentMainBinding
-import com.example.serebro_gallery.domain.models.ExhibitionItem
-import com.example.serebro_gallery.domain.models.PrizePhoto
 import com.example.serebro_gallery.presentation.adapter.ExhibitionAdapter
 import com.example.serebro_gallery.presentation.viewmodel.ExhibitionsState
 import com.example.serebro_gallery.presentation.viewmodel.MainViewModel
+import ru.null_checkers.ui.toolbar.ToolbarController
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.delay
@@ -53,6 +51,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
         }
 
+        setupTitle()
+
         binding.rcvExhibition.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = this@MainFragment.adapter
@@ -63,6 +63,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         if (viewModel.exhibitions.value.isNullOrEmpty()) {
             viewModel.loadExhibitions()
         }
+
 
         viewModel.state.observe(viewLifecycleOwner) { state ->
             when (state) {
@@ -109,12 +110,16 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
     }
 
+    private fun setupTitle() {
+        (requireActivity() as? ToolbarController)?.setTitle("Выставки")
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-    companion object {
-        fun newInstance() = MainFragment()
-    }
+//    companion object {
+//        fun newInstance() = MainFragment()
+//    }
 }

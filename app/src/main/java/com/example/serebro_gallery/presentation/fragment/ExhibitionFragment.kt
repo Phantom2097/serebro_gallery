@@ -4,11 +4,15 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.example.serebro_gallery.R
 import com.example.serebro_gallery.databinding.FragmentExhibitionBinding
 import com.example.serebro_gallery.presentation.viewmodel.ExhibitionViewModel
 import com.example.serebro_gallery.presentation.viewmodel.MainViewModel
+import ru.null_checkers.ui.toolbar.ToolbarController
 
 class ExhibitionFragment : Fragment(R.layout.fragment_exhibition) {
     private lateinit var binding: FragmentExhibitionBinding
@@ -21,7 +25,10 @@ class ExhibitionFragment : Fragment(R.layout.fragment_exhibition) {
         binding = FragmentExhibitionBinding.bind(view)
 
         val exhibition = mainViewModel.currExhibition.value
-        binding.tvTitle.setText(exhibition?.name)
+        binding.tvTitle.text = exhibition?.name
+
+        setupTitle()
+
         Glide.with(this)
             .load(exhibition?.afisha)
             .placeholder(R.drawable.logo_black)
@@ -46,5 +53,12 @@ class ExhibitionFragment : Fragment(R.layout.fragment_exhibition) {
                 .into(binding.ivFirstPlace)
         }
 
+        binding.swipeFeedButton.setOnClickListener {
+            findNavController().navigate(R.id.action_exhibitionFragment_to_swipeFeedFragment)
+        }
+
+    }
+    private fun setupTitle() {
+        (requireActivity() as? ToolbarController)?.setTitle("Выставка")
     }
 }

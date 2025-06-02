@@ -20,7 +20,11 @@
         android:id="@+id/exhibitionFragment"
         android:name="com.example.serebro_gallery.presentation.fragment.ExhibitionFragment"
         android:label="fragment_exhibition"
-        tools:layout="@layout/fragment_exhibition"/>
+        tools:layout="@layout/fragment_exhibition">
+        <action
+            android:id="@+id/action_exhibitionFragment_to_swipeFeedFragment"
+            app:destination="@id/swipeFeedFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/linkFragment"
@@ -82,5 +86,10 @@
         android:name="com.example.serebro_gallery.presentation.fragment.GalleryFragment"
         android:label="fragment_gallery"
         tools:layout="@layout/fragment_gallery"/>
+    <fragment
+        android:id="@+id/swipeFeedFragment"
+        android:name="com.example.serebro_gallery.presentation.swipe_feed.SwipeFeedFragment"
+        android:label="fragment_swipe_feed"
+        tools:layout="@layout/fragment_swipe_feed" />
 
 </navigation>
