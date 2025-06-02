@@ -118,8 +118,4 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         super.onDestroyView()
         _binding = null
     }
-
-//    companion object {
-//        fun newInstance() = MainFragment()
-//    }
 }

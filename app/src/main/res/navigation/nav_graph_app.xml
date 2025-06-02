@@ -33,18 +33,18 @@
         tools:layout="@layout/fragment_link"/>
     <fragment
         android:id="@+id/aboutProjectFragment"
-        android:name="com.example.serebro_gallery.presentation.fragment.AboutProjectFragment"
+        android:name="ru/null_checkers/project_information/AboutProjectFragment.kt"
         android:label="fragment_about">
     </fragment>
     <fragment
         android:id="@+id/contactsFragment"
-        android:name="com.example.serebro_gallery.presentation.fragment.ContactsFragment"
+        android:name="ru.null_checkers.project_information.ContactsFragment"
         android:label="fragment_contacts">
     </fragment>
 
     <fragment
         android:id="@+id/partnersFragment"
-        android:name="com.example.serebro_gallery.presentation.fragment.PartnersFragment"
+        android:name="ru.null_checkers.project_information.PartnersFragment"
         android:label="fragment_link"
         tools:layout="@layout/fragment_partners">
     </fragment>

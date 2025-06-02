@@ -43,7 +43,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="@color/white"
             app:cardCornerRadius="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/nextButton"
@@ -52,9 +52,10 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="72dp"
                 android:contentDescription="@string/likeButton"
-                android:src="@drawable/sharp_heart_plus_24" />
+                android:padding="4dp"
+                android:src="@drawable/heart" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -63,7 +64,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="@color/white"
             app:cardCornerRadius="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,9 +73,10 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="72dp"
                 android:contentDescription="@string/nextButton"
-                android:src="@drawable/rounded_heart_broken_24" />
+                android:padding="4dp"
+                android:src="@drawable/left" />
 
         </com.google.android.material.card.MaterialCardView>
 
