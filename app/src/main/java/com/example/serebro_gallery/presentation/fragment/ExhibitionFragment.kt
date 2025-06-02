@@ -2,21 +2,25 @@ package com.example.serebro_gallery.presentation.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.serebro_gallery.R
 import com.example.serebro_gallery.databinding.FragmentExhibitionBinding
 import com.example.serebro_gallery.domain.models.PrizePhoto
 import com.example.serebro_gallery.presentation.activity.MainActivity
 import com.example.serebro_gallery.presentation.adapter.PrizePhotoAdapter
+import com.example.serebro_gallery.presentation.viewmodel.ExhibitionViewModel
 import com.example.serebro_gallery.presentation.viewmodel.MainViewModel
+import com.example.serebro_gallery.presentation.viewmodel.ProfileViewModel
+import kotlin.getValue
 
 class ExhibitionFragment : Fragment(R.layout.fragment_exhibition) {
     private lateinit var binding: FragmentExhibitionBinding
     private lateinit var adapter: PrizePhotoAdapter
     val mainViewModel: MainViewModel by activityViewModels()
+    private val photoViewModel by activityViewModels<ExhibitionViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,6 +46,19 @@ class ExhibitionFragment : Fragment(R.layout.fragment_exhibition) {
         println("!!! ${exhibition?.afisha}")
         binding.tvDescription.setText(exhibition?.description)
         binding.ivFirstPlace.setImageResource(R.drawable.photo)
+
+        photoViewModel.loadPhotos(exhibition?.link)
+        photoViewModel.photos.observe(viewLifecycleOwner) { photo ->
+
+            photo.forEach {
+                println("""
+                   Автор: ${it.name}
+                   Ссылка фото: ${it.link}
+                   ${"-".repeat(50)}
+               """.trimIndent())
+            }
+
+        }
     }
 
     private fun init() {

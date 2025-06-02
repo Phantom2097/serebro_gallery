@@ -24,6 +24,7 @@ class MainViewModel : ViewModel() {
     }
 
     fun loadExhibitions() {
+        println("!!! загрузка выставок")
         viewModelScope.launch {
             try {
                 val htmlContent = RetrofitHelper.creatExhibitionRetrofit().getExhibitionsPage()

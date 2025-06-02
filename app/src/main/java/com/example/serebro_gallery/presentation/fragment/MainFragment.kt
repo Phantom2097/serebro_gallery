@@ -19,7 +19,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private val binding get() = _binding!!
 
     private lateinit var adapter: ExhibitionAdapter
-    val viewModel: MainViewModel by activityViewModels()
+    private val viewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,7 +48,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         setupObserver()
 
         if (viewModel.exhibitions.value.isNullOrEmpty()) {
-            println("!!! loading")
             viewModel.loadExhibitions()
         }
     }

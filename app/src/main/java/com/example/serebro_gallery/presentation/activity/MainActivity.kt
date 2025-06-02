@@ -8,11 +8,16 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.serebro_gallery.R
+import com.example.serebro_gallery.data.AppDatabase
 import com.example.serebro_gallery.databinding.ActivityMainBinding
 import com.example.serebro_gallery.databinding.AppActionBarBinding
+import com.example.serebro_gallery.domain.repository.PhotoRepository
 import com.example.serebro_gallery.presentation.viewmodel.MainViewModel
+import com.example.serebro_gallery.presentation.viewmodel.PhotoViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -54,12 +59,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupButtons() {
-        toolbarBinding.btnBackToMain.setOnClickListener {
+        binding.btnBackToMain.setOnClickListener {
             Log.d("NAV", "Back button clicked")
             navigateToMain()
         }
 
-        toolbarBinding.btnMenu.setOnClickListener {
+        binding.btnMenu.setOnClickListener {
             val navController = findNavController(R.id.nav_host)
 
             if (navController.currentDestination?.id == R.id.linkFragment) {
@@ -126,5 +131,22 @@ class MainActivity : AppCompatActivity() {
             }
         }
         onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    private val database by lazy { AppDatabase.getDatabase(this) }
+    private val repository by lazy { PhotoRepository(database.photoDao()) }
+
+    // Фабрика для ViewModel
+    private val viewModelFactory by lazy {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return PhotoViewModel(repository) as T
+            }
+        }
+    }
+
+    // Функция для доступа к ViewModel из фрагментов
+    fun getSharedPhotoViewModel(): PhotoViewModel {
+        return ViewModelProvider(this, viewModelFactory)[PhotoViewModel::class.java]
     }
 }
