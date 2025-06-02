@@ -27,6 +27,8 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.launch
 import ru.null_checkers.form_filling_screen.databinding.FragmentFormFillingBinding
+import ru.null_checkers.ui.R
+import ru.null_checkers.ui.toolbar.ToolbarController
 
 class FormFilling : Fragment() {
 
@@ -46,6 +48,8 @@ class FormFilling : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setTitle()
+
         observeFields()
         redefineOnBackPressed()
         initButtons()
@@ -64,9 +68,11 @@ class FormFilling : Fragment() {
         )
     }
 
-//    private fun setupTittle() {
-//
-//    }
+    private fun setTitle() {
+        (requireActivity() as? ToolbarController)?.setTitle(
+            getString(R.string.formFillingLogoText)
+        )
+    }
 
     private fun redefineOnBackPressed() {
         val callback = object : OnBackPressedCallback(true) {
@@ -260,16 +266,16 @@ class FormFilling : Fragment() {
     }
 
     private val galleryLauncher = registerForActivityResult(
-            ActivityResultContracts.GetContent()
-        ) { uri: Uri? ->
-            isProcessing = false
-            uri?.let { imageUri ->
-                val fileName = DocumentFile.fromSingleUri(requireContext(), imageUri)?.name
-                    ?: uri.lastPathSegment.toString()
-                viewModel.onItemClick(MediaFile(uri = imageUri, name = fileName))
+        ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        isProcessing = false
+        uri?.let { imageUri ->
+            val fileName = DocumentFile.fromSingleUri(requireContext(), imageUri)?.name
+                ?: uri.lastPathSegment.toString()
+            viewModel.onItemClick(MediaFile(uri = imageUri, name = fileName))
 
-            }
         }
+    }
 
     private fun openGallery() {
         galleryLauncher.launch(GALLERY_LAUNCHER_FILTER)

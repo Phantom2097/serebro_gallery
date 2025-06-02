@@ -9,8 +9,8 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import com.example.serebro_gallery.R
-import com.example.serebro_gallery.presentation.activity.MainActivity
 import com.facebook.shimmer.ShimmerFrameLayout
+import ru.null_checkers.ui.toolbar.ToolbarController
 
 class AboutProjectFragment : Fragment() {
 
@@ -32,7 +32,7 @@ class AboutProjectFragment : Fragment() {
         val webView = view.findViewById<WebView>(R.id.webView)
         val shimmerView = view.findViewById<ShimmerFrameLayout>(R.id.shimmerView)
 
-        (requireActivity() as? MainActivity)?.updateToolbarTitle("О проекте")
+        (requireActivity() as? ToolbarController)?.setTitle("О проекте")
 
         webView.settings.javaScriptEnabled = true
 

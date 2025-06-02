@@ -10,10 +10,10 @@ import com.bumptech.glide.Glide
 import com.example.serebro_gallery.R
 import com.example.serebro_gallery.databinding.FragmentExhibitionBinding
 import com.example.serebro_gallery.domain.models.PrizePhoto
-import com.example.serebro_gallery.presentation.activity.MainActivity
 import com.example.serebro_gallery.presentation.adapter.PrizePhotoAdapter
 import com.example.serebro_gallery.presentation.viewmodel.ExhibitionViewModel
 import com.example.serebro_gallery.presentation.viewmodel.MainViewModel
+import ru.null_checkers.ui.toolbar.ToolbarController
 
 class ExhibitionFragment : Fragment(R.layout.fragment_exhibition) {
     private lateinit var binding: FragmentExhibitionBinding
@@ -35,7 +35,7 @@ class ExhibitionFragment : Fragment(R.layout.fragment_exhibition) {
         val exhibition = mainViewModel.currExhibition.value
         binding.tvTitle.text = exhibition?.name
 
-        (requireActivity() as? MainActivity)?.updateToolbarTitle("Выставка")
+        setupTitle()
 
         Glide.with(this)
             .load(exhibition?.afisha)
@@ -62,6 +62,10 @@ class ExhibitionFragment : Fragment(R.layout.fragment_exhibition) {
         binding.swipeFeedButton.setOnClickListener {
             findNavController().navigate(R.id.action_exhibitionFragment_to_swipeFeedFragment)
         }
+    }
+
+    private fun setupTitle() {
+        (requireActivity() as? ToolbarController)?.setTitle("Выставка")
     }
 
     private fun init() {

@@ -4,12 +4,16 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.serebro_gallery.R
-import com.example.serebro_gallery.presentation.activity.MainActivity
+import ru.null_checkers.ui.toolbar.ToolbarController
 
 class PartnersFragment : Fragment(R.layout.fragment_partners) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (requireActivity() as? MainActivity)?.updateToolbarTitle("Партнёры")
+        setupTitle()
+    }
+
+    private fun setupTitle() {
+        (requireActivity() as? ToolbarController)?.setTitle("Партнёры и друзья")
     }
 }

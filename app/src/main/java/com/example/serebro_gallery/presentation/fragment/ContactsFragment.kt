@@ -9,7 +9,7 @@ import android.widget.LinearLayout
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import com.example.serebro_gallery.R
-import com.example.serebro_gallery.presentation.activity.MainActivity
+import ru.null_checkers.ui.toolbar.ToolbarController
 
 class ContactsFragment : Fragment() {
 
@@ -40,7 +40,7 @@ class ContactsFragment : Fragment() {
             startActivity(intent)
         }
 
-        (requireActivity() as? MainActivity)?.updateToolbarTitle("Контакты")
+        setupTitle()
 
         llVk.setOnClickListener {
             openUrl(urlVk)
@@ -51,5 +51,9 @@ class ContactsFragment : Fragment() {
         llDzen.setOnClickListener {
             openUrl(urlDzen)
         }
+    }
+
+    private fun setupTitle() {
+        (requireActivity() as? ToolbarController)?.setTitle("Контакты")
     }
 }

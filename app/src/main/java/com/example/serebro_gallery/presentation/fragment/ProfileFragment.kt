@@ -22,6 +22,7 @@ import com.example.serebro_gallery.presentation.viewmodel.ProfileViewModel
 import com.google.android.material.tabs.TabLayout
 import ru.null_checkers.form_filling_screen.ui.formfilling.MediaFile
 import androidx.core.net.toUri
+import ru.null_checkers.ui.toolbar.ToolbarController
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private lateinit var nameEditText: EditText
@@ -43,6 +44,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setupTitle()
 
         nameEditText = view.findViewById(R.id.name)
         surnameEditText = view.findViewById(R.id.surname)
@@ -95,6 +98,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         }
     }
+
+    private fun setupTitle() {
+        (requireActivity() as? ToolbarController)?.setTitle("Профиль")
+    }
+
     private fun openGallery() {
         galleryLauncher.launch(GALLERY_LAUNCHER_FILTER)
     }
