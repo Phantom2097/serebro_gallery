@@ -1,9 +1,11 @@
-package com.example.serebro_gallery.domain.repository
+package ru.null_checkers.common.repository
 
 import com.example.serebro_gallery.domain.PhotoDao
 import com.example.serebro_gallery.domain.entity.PhotoEntity
+import com.example.serebro_gallery.domain.models.Photo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import ru.null_checkers.common.entity.PhotoEntity
 import ru.null_checkers.common.models.Photo
 
 class PhotoRepository(private val photoDao: PhotoDao) {

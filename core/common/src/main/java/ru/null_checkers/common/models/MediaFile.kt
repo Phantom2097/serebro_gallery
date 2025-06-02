@@ -1,4 +1,4 @@
-package ru.null_checkers.form_filling_screen.ui.formfilling
+package ru.null_checkers.common.models
 
 import android.net.Uri
 

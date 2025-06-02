@@ -44,6 +44,7 @@ dependencies {
     implementation(project(":feature:form_filling_screen"))
     implementation(project(":feature:project_information"))
     implementation(project(":core:ui"))
+    implementation(project(":core:common"))
 
     // ViewModel
     implementation(libs.androidx.lifecycle.livedata.ktx)
@@ -80,7 +81,7 @@ dependencies {
 
 
     implementation ("androidx.room:room-runtime:2.7.1")
-    implementation( "androidx.room:room-ktx:2.7.1")
+    implementation( libs.androidx.room.ktx)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
