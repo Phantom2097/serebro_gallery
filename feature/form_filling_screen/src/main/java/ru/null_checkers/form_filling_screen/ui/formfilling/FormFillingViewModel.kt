@@ -1,15 +1,23 @@
 package ru.null_checkers.form_filling_screen.ui.formfilling
 
+import android.content.Context
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import ru.null_checkers.form_filling_screen.domain.use_cases_impls.SendDataToForm
+import ru.null_checkers.common.models.MediaFile
+import ru.null_checkers.common.use_cases.PickImageFromGallery
+import ru.null_checkers.common.use_cases_impls.PickImageFromGalleryUseCase
+import ru.null_checkers.form_filling_screen.domain.factory.UrlForOnlineFormFactory
+import ru.null_checkers.form_filling_screen.domain.models.UserForm
+import ru.null_checkers.form_filling_screen.domain.use_cases.ShowOpenUrlDialog
+import ru.null_checkers.form_filling_screen.domain.use_cases_impls.ShowOpenUrlDialogUseCase
 
-/**
- * @author Phantom2097
- */
-class FormFillingViewModel() : ViewModel(), OnItemClick {
+class FormFillingViewModel(
+    private val showOpenUrlDialog: ShowOpenUrlDialog = ShowOpenUrlDialogUseCase(),
+    private val pickImageFromGallery: PickImageFromGallery = PickImageFromGalleryUseCase()
+) : ViewModel(), OnItemClick {
 
     private var _userFieldsState = MutableStateFlow<UserForm>(UserForm())
     val userFieldsState = _userFieldsState.asStateFlow()
@@ -26,9 +34,20 @@ class FormFillingViewModel() : ViewModel(), OnItemClick {
         _userFieldsState.update { it.copy(image = file) }
     }
 
-    fun goToOnlineForm() : String {
+    fun getUrl() : String {
         userFieldsState.value.apply {
-            return SendDataToForm.sendDataToForm(name, tgAccount)
+            return UrlForOnlineFormFactory.sendDataToForm(name, tgAccount)
+        }
+    }
+
+    fun showDialog(context: Context, url: String) {
+        showOpenUrlDialog(context, url)
+    }
+
+    // Пока не используется
+    fun openGallery(activity: FragmentActivity) {
+        pickImageFromGallery(activity) { mediaFile ->
+            onItemClick(mediaFile)
         }
     }
 

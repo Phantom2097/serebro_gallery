@@ -1,61 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cv_libraryItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginBottom="8dp"
     android:clickable="true"
     android:focusable="true"
-    app:cardCornerRadius="8dp"
-    app:cardPreventCornerOverlap="false"
-    app:cardUseCompatPadding="true"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintWidth_max="480dp">
+    android:padding="0dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="3dp"
-        android:orientation="vertical">
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_max="480dp">
 
-        <ImageView
-            android:id="@+id/iv_itemImage"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:scaleType="centerCrop"
-            android:src="@drawable/img" />
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_itemDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Text.Golos.Small"
-            android:gravity="center"
-            tools:text="Date" />
+            <ImageView
+                android:id="@+id/iv_itemImage"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img" />
 
-        <TextView
-            android:id="@+id/tv_itemName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Text.Golos.MiddleBeauty"
-            tools:text="Name" />
+            <TextView
+                android:id="@+id/tv_itemDate"
+                style="@style/Text.Golos.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:text="Date" />
 
-        <TextView
-            android:id="@+id/tv_itemDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            style="@style/Text.Golos.Small"
-            tools:text="Description" />
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/tv_itemName"
+                style="@style/Text.Golos.MiddleBeauty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Name" />
+
+            <TextView
+                android:id="@+id/tv_itemDescription"
+                style="@style/Text.Golos.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:text="Description" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

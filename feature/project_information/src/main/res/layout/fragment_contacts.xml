@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context="ru.null_checkers.project_information.ContactsFragment">
+    tools:context="ru.null_checkers.project_information.presentation.ContactsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

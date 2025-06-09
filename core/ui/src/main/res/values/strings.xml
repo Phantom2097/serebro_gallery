@@ -1,5 +1,15 @@
 <resources>
 
+    // Titles
+    <string name="mainFragmentTitle">Выставки</string>
+    <string name="exhibitionFragmentTitle">Выставка</string>
+    <string name="profileFragmentTitle">Профиль</string>
+    <string name="formFillingFragmentTitle">Форма регистрации</string>
+    <string name="aboutProjectFragmentTitle">О проекте</string>
+    <string name="contactsFragmentTitle">Контакты</string>
+    <string name="partnersFragmentTitle">Партнёры и друзья</string>
+
+
     // fragment_form_filling
     <string name="buttonForAddImageDescription">Кнопка для добавления изображения</string>
     <string name="formFillingLogoText">Форма регистрации</string>

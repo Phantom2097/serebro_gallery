@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:maxWidth="480dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/form_filling"
@@ -19,7 +20,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
             android:hint="@string/userNameFieldLayoutHint"
             app:boxStrokeColor="@color/black"
             app:endIconMode="clear_text"
@@ -31,7 +32,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
-            app:layout_constraintWidth_max="480dp"
             app:startIconDrawable="@drawable/rounded_person_24">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -49,7 +49,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
             android:hint="@string/userTelegramFieldLayoutHint"
             app:boxStrokeColor="@color/black"
             app:endIconMode="clear_text"
@@ -60,7 +60,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/userNameFieldLayout"
-            app:layout_constraintWidth_max="480dp"
             app:prefixText="\@"
             app:prefixTextAppearance="@style/CustomPrefixTextAppearance"
             app:startIconDrawable="@drawable/telegram_svgrepo_com">
@@ -75,12 +74,11 @@
                 android:textSize="24sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/addImageCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
             android:clickable="true"
             android:focusable="true"
             app:cardCornerRadius="8dp"
@@ -124,6 +122,25 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/goToOnlineForm"
+            style="@style/TextAppearance.AppCompat.Widget.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:backgroundTint="@color/black"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="12dp"
+            android:text="@string/goToOnlineFormText"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:cornerRadius="8dp"
+            app:layout_constraintBottom_toTopOf="@id/buttonApplyForAnExhibition"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/addImageCard"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonApplyForAnExhibition"
             style="@style/TextAppearance.AppCompat.Widget.Button"
             android:layout_width="0dp"
@@ -141,23 +158,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/goToOnlineForm" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/goToOnlineForm"
-            style="@style/TextAppearance.AppCompat.Widget.Button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/black"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="12dp"
-            android:text="@string/goToOnlineFormText"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:cornerRadius="8dp"
-            app:layout_constraintBottom_toTopOf="@id/buttonApplyForAnExhibition"
-            app:layout_constraintEnd_toEndOf="@id/buttonApplyForAnExhibition"
-            app:layout_constraintStart_toStartOf="@id/buttonApplyForAnExhibition"
-            app:layout_constraintTop_toBottomOf="@id/addImageCard"
-            app:layout_constraintVertical_chainStyle="packed" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

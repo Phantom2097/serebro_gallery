@@ -2,6 +2,7 @@ package com.example.serebro_gallery.presentation.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -19,6 +20,8 @@ class ExhibitionFragment : Fragment(R.layout.fragment_exhibition) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        redefineOnBackPressed()
 
         binding = FragmentExhibitionBinding.bind(view)
 
@@ -56,7 +59,20 @@ class ExhibitionFragment : Fragment(R.layout.fragment_exhibition) {
         }
 
     }
+
+    private fun redefineOnBackPressed() {
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().popBackStack(R.id.mainFragment, false)
+                mainViewModel.clearSelectedItem()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
     private fun setupTitle() {
-        (requireActivity() as? ToolbarController)?.setTitle("Выставка")
+        (requireActivity() as? ToolbarController)?.setTitle(
+            getString(ru.null_checkers.ui.R.string.exhibitionFragmentTitle)
+        )
     }
 }

@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
 
-    id("com.google.devtools.ksp")
+//    id("com.google.devtools.ksp")
 }
 
 android {
@@ -39,6 +39,7 @@ android {
 
 dependencies {
     implementation(project(":core:ui"))
+    implementation(project(":core:common"))
 
     // Android
     implementation(libs.androidx.core.ktx)
@@ -48,8 +49,8 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
 
     // Dagger
-    implementation(libs.dagger)
-    ksp(libs.dagger.compiler)
+//    implementation(libs.dagger)
+//    ksp(libs.dagger.compiler)
 
     // Glide
     implementation(libs.glide)

@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity(), ToolbarController {
         setupToolBar()
     }
 
-
     private fun setupToolBar() {
         createToolbar()
         setupButtons()

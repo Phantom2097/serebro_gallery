@@ -1,5 +1,6 @@
 package com.example.serebro_gallery.presentation.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -20,6 +21,7 @@ class ExhibitionAdapter() :
         return ExhibitionHolder(binding).apply {
             binding.root.setOnClickListener {
                 val position = adapterPosition
+                Log.d("Exhibition", "go to detail")
                 onItemClickListener?.invoke(currentList[position])
             }
         }

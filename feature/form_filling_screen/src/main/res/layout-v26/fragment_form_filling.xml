@@ -125,25 +125,6 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonApplyForAnExhibition"
-            style="@style/TextAppearance.AppCompat.Widget.Button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:autoSizeMaxTextSize="24sp"
-            android:backgroundTint="@color/black"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="12dp"
-            android:text="@string/buttonApplyForAnExhibitionText"
-            android:textColor="@color/white"
-            app:cornerRadius="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/goToOnlineForm"
-            app:layout_constraintWidth_max="480dp" />
-
-        <com.google.android.material.button.MaterialButton
             android:id="@+id/goToOnlineForm"
             style="@style/TextAppearance.AppCompat.Widget.Button"
             android:layout_width="0dp"
@@ -160,6 +141,25 @@
             app:layout_constraintStart_toStartOf="@id/buttonApplyForAnExhibition"
             app:layout_constraintTop_toBottomOf="@id/addImageCard"
             app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintWidth_max="480dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonApplyForAnExhibition"
+            style="@style/TextAppearance.AppCompat.Widget.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:autoSizeMaxTextSize="24sp"
+            android:backgroundTint="@color/black"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="12dp"
+            android:text="@string/buttonApplyForAnExhibitionText"
+            android:textColor="@color/white"
+            app:cornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/goToOnlineForm"
             app:layout_constraintWidth_max="480dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

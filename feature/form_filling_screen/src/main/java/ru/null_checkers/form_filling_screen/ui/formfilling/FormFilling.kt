@@ -13,9 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
-import androidx.core.net.toUri
 import androidx.core.widget.doAfterTextChanged
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
@@ -26,8 +24,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.launch
+import ru.null_checkers.common.models.MediaFile
 import ru.null_checkers.form_filling_screen.databinding.FragmentFormFillingBinding
-import ru.null_checkers.ui.R
 import ru.null_checkers.ui.toolbar.ToolbarController
 
 class FormFilling : Fragment() {
@@ -70,7 +68,7 @@ class FormFilling : Fragment() {
 
     private fun setTitle() {
         (requireActivity() as? ToolbarController)?.setTitle(
-            getString(R.string.formFillingLogoText)
+            getString(ru.null_checkers.ui.R.string.formFillingFragmentTitle)
         )
     }
 
@@ -111,7 +109,7 @@ class FormFilling : Fragment() {
 
                                 Glide.with(requireContext())
                                     .load(uri)
-                                    .override(300, 300)
+                                    .override(SELECTED_IMAGE_WIDTH, SELECTED_IMAGE_HEIGHT)
                                     .centerCrop()
                                     .into(buttonForAddImage)
                             }
@@ -200,26 +198,15 @@ class FormFilling : Fragment() {
 
     private fun addInternetFormButton(view: View) {
         view.setOnClickListener {
-            val formUrl = viewModel.goToOnlineForm()
-            val intent = Intent(Intent.ACTION_VIEW, formUrl.toUri())
-
-            // Диалог
-            createDialog(intent)
+            openUrlWithDialog()
         }
     }
 
-    private fun createDialog(intent: Intent) {
-        AlertDialog.Builder(requireContext())
-            .setTitle("Подтверждение")
-            .setMessage("Вы уверены, что хотите заполнить форму онлайн?\nЗаполненные поля сохранятся, но изображение придётся выбрать заново")
-            .setPositiveButton("OK") { _, _ ->
-                requireContext().startActivity(intent)
-            }
-            .setNegativeButton("Отмена") { dialog, _ ->
-                dialog.dismiss()
-            }
-            .setCancelable(true)
-            .show()
+    // Наверное это надо разнести на два useCase
+    private fun openUrlWithDialog() = with(viewModel) {
+        val formUrl = getUrl()
+
+        showDialog(requireContext(), formUrl)
     }
 
     private fun sendEmail(
@@ -260,6 +247,11 @@ class FormFilling : Fragment() {
         view.setOnClickListener {
             if (!isProcessing) {
                 isProcessing = true
+//                viewModel.openGallery(requireActivity())
+                /*
+                Нужно регистрировать активити при инициализации фрагмента, возможно можно сделать
+                это при создании вью
+                 */
                 openGallery()
             }
         }
@@ -273,7 +265,6 @@ class FormFilling : Fragment() {
             val fileName = DocumentFile.fromSingleUri(requireContext(), imageUri)?.name
                 ?: uri.lastPathSegment.toString()
             viewModel.onItemClick(MediaFile(uri = imageUri, name = fileName))
-
         }
     }
 
@@ -288,7 +279,6 @@ class FormFilling : Fragment() {
         view.setOnClickListener {
             val (name, tgAccount, file) = viewModel.getMedia()
             sendEmail(name, tgAccount, file)
-            Toast.makeText(requireContext(), "Нужно бы уже это сделать", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -299,5 +289,8 @@ class FormFilling : Fragment() {
 
     private companion object {
         private const val GALLERY_LAUNCHER_FILTER = "image/*"
+
+        private const val SELECTED_IMAGE_HEIGHT = 300
+        private const val SELECTED_IMAGE_WIDTH = 300
     }
 }

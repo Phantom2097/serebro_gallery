@@ -43,6 +43,7 @@ dependencies {
     // Modules
     implementation(project(":feature:form_filling_screen"))
     implementation(project(":feature:project_information"))
+    implementation(project(":core:common"))
     implementation(project(":core:ui"))
 
     // ViewModel

@@ -1,13 +1,12 @@
 package com.example.serebro_gallery.presentation.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,11 +16,8 @@ import com.example.serebro_gallery.databinding.FragmentMainBinding
 import com.example.serebro_gallery.presentation.adapter.ExhibitionAdapter
 import com.example.serebro_gallery.presentation.viewmodel.ExhibitionsState
 import com.example.serebro_gallery.presentation.viewmodel.MainViewModel
-import ru.null_checkers.ui.toolbar.ToolbarController
 import com.facebook.shimmer.ShimmerFrameLayout
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.delay
-import kotlin.getValue
+import ru.null_checkers.ui.toolbar.ToolbarController
 
 class MainFragment : Fragment(R.layout.fragment_main) {
     private var _binding: FragmentMainBinding? = null
@@ -47,6 +43,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
         adapter = ExhibitionAdapter().apply {
             setOnItemClickListener { item ->
+                Log.d("Exhibition", "go to detail")
                 viewModel.selectItem(item)
             }
         }
@@ -111,7 +108,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun setupTitle() {
-        (requireActivity() as? ToolbarController)?.setTitle("Выставки")
+        (requireActivity() as? ToolbarController)?.setTitle(
+            getString(ru.null_checkers.ui.R.string.mainFragmentTitle)
+        )
     }
 
     override fun onDestroyView() {

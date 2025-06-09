@@ -33,18 +33,18 @@
         tools:layout="@layout/fragment_link"/>
     <fragment
         android:id="@+id/aboutProjectFragment"
-        android:name="ru.null_checkers.project_information.AboutProjectFragment"
+        android:name="ru.null_checkers.project_information.presentation.AboutProjectFragment"
         android:label="fragment_about">
     </fragment>
     <fragment
         android:id="@+id/contactsFragment"
-        android:name="ru.null_checkers.project_information.ContactsFragment"
+        android:name="ru.null_checkers.project_information.presentation.ContactsFragment"
         android:label="fragment_contacts">
     </fragment>
 
     <fragment
         android:id="@+id/partnersFragment"
-        android:name="ru.null_checkers.project_information.PartnersFragment"
+        android:name="ru.null_checkers.project_information.presentation.PartnersFragment"
         android:label="fragment_link"
         tools:layout="@layout/fragment_partners">
     </fragment>

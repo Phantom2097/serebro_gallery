@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize">
+    android:layout_height="?attr/actionBarSize"
+    android:layout_gravity="center_horizontal"
+    android:background="@null"
+    android:maxWidth="480dp">
 
     <ImageButton
         android:id="@+id/btn_back_to_main"
@@ -13,25 +17,25 @@
         android:contentDescription="Home Toolbar Button"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/toolbar_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/toolbar_title"
         app:srcCompat="@drawable/logo_white_2" />
 
     <TextView
         android:id="@+id/toolbar_title"
+        style="@style/Text.Golos.BigBeauty"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:maxLines="1"
-        android:text="Выставки"
-        style="@style/Text.Golos.BigBeauty"
-        android:textColor="@color/black"
         android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btn_menu"
         app:layout_constraintStart_toEndOf="@id/btn_back_to_main"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Выставки" />
 
 
     <ImageButton
@@ -42,9 +46,9 @@
         android:background="@null"
         android:contentDescription="Menu Toolbar Button"
         android:scaleType="centerCrop"
-        app:layout_constraintStart_toEndOf="@id/toolbar_title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/toolbar_title"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/hamburger" />
 
