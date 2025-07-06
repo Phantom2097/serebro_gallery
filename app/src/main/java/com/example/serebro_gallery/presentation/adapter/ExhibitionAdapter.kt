@@ -31,7 +31,7 @@ class ExhibitionAdapter() :
         holder.bind(getItem(position))
     }
 
-    override fun  getItemCount() = currentList.size
+    override fun getItemCount() = currentList.size
 
     fun setOnItemClickListener(listener: (ExhibitionItem) -> Unit) {
         onItemClickListener = listener

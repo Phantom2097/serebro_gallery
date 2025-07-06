@@ -42,17 +42,12 @@ class MainActivity : AppCompatActivity(), ToolbarController {
 
         redefineOnBackPressed()
 
-        setupToolBar()
+        setupUI()
     }
 
-    private fun setupToolBar() {
+    private fun setupUI() {
         createToolbar()
         setupButtons()
-    }
-
-    // Возможно так нельзя, нужен какой-нибудь интерфейс или ещё что-то
-    fun updateToolbarTitle(title: String) {
-        toolbarBinding.toolbarTitle.text = title
     }
 
     private fun setupButtons() {

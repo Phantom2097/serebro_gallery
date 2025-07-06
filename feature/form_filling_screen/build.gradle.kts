@@ -55,9 +55,8 @@ dependencies {
     // Glide
     implementation(libs.glide)
 
-    // Navigation
-    implementation(libs.androidx.navigation.fragment)
-    implementation(libs.androidx.navigation.ui)
+    // Navigation include [ui, fragment]
+    implementation(libs.bundles.androidx.navigation)
 
 //    // OkHttp
 //    implementation(libs.logging.interceptor)

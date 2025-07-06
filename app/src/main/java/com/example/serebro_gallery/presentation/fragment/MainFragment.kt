@@ -1,16 +1,20 @@
 package com.example.serebro_gallery.presentation.fragment
 
+import android.app.Activity
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.serebro_gallery.R
 import com.example.serebro_gallery.databinding.FragmentMainBinding
 import com.example.serebro_gallery.presentation.adapter.ExhibitionAdapter
@@ -19,7 +23,7 @@ import com.example.serebro_gallery.presentation.viewmodel.MainViewModel
 import com.facebook.shimmer.ShimmerFrameLayout
 import ru.null_checkers.ui.toolbar.ToolbarController
 
-class MainFragment : Fragment(R.layout.fragment_main) {
+class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
@@ -29,7 +33,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
@@ -51,7 +55,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         setupTitle()
 
         binding.rcvExhibition.apply {
-            layoutManager = LinearLayoutManager(requireContext())
+            layoutManager = setupLayoutManagerByWidth()
             adapter = this@MainFragment.adapter
         }
 
@@ -69,6 +73,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     shimmerLayout.visibility = View.VISIBLE
                     recyclerView.visibility = View.GONE
                 }
+
                 is ExhibitionsState.Success -> {
                     shimmerLayout.stopShimmer()
                     shimmerLayout.visibility = View.GONE
@@ -76,16 +81,19 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
                     adapter.submitList(state.exhibitions)
 
-                    state.exhibitions.forEach {
-                        println("""
-                            Выставка: ${it.name}
-                            Дата: ${it.date}
-                            Описание: ${it.description.take(50)}...
-                            ID фото: ${it.afisha}
+                    state.exhibitions.forEach { (date, name, description, afisha) ->
+                        println(
+                            """
+                            Выставка: $name
+                            Дата: $date
+                            Описание: ${description.take(50)}...
+                            ID фото: $afisha
                             ${"-".repeat(50)}
-                        """.trimIndent())
+                        """.trimIndent()
+                        )
                     }
                 }
+
                 is ExhibitionsState.Error -> {
                     val ops = view.findViewById<TextView>(R.id.ops)
                     shimmerLayout.stopShimmer()
@@ -94,6 +102,50 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 }
             }
         }
+    }
+
+    /**
+     * Получение LayoutManager в зависимости от ширины дисплея устройства
+     */
+    private fun setupLayoutManagerByWidth(): LayoutManager {
+        val displayWidth = getScreenWidthInDp(requireActivity())
+
+        Log.d("CurrentWidth", "Ширина: $displayWidth")
+
+        val gridSpan = gridSpanByWidth(displayWidth)
+
+        return GridLayoutManager(requireContext(), gridSpan)
+    }
+
+    /**
+     * Получение ширины дисплея
+     */
+    private fun getScreenWidthInDp(activity: Activity): Int = with(activity) {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            getScreenWidthInDpApi30Plus(this@with)
+        } else {
+            resources.configuration.screenWidthDp
+        }
+    }
+
+    /**
+     * Получение ширины дисплея API 30+
+     */
+    @RequiresApi(Build.VERSION_CODES.R)
+    private fun getScreenWidthInDpApi30Plus(activity: Activity): Int = with(activity) {
+        val windowMetrics = windowManager.currentWindowMetrics
+        val bounds = windowMetrics.bounds
+        return (bounds.width() / resources.displayMetrics.density).toInt()
+    }
+
+    /**
+     * Определение размера сетки
+     */
+    private fun gridSpanByWidth(displayWidth: Int): Int = when {
+        displayWidth <= WIDTH_MEDIUM -> LAYOUT_MANAGER_GRID_MEDIUM
+        displayWidth <= WIDTH_EXPANDED -> LAYOUT_MANAGER_GRID_EXPANDED
+        displayWidth <= WIDTH_LARGE -> LAYOUT_MANAGER_GRID_LARGE
+        else -> LAYOUT_MANAGER_GRID_EXTRA_LARGE
     }
 
     private fun setupObserver() {
@@ -116,5 +168,16 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private companion object {
+        private const val WIDTH_MEDIUM = 600
+        private const val WIDTH_EXPANDED = 1200
+        private const val WIDTH_LARGE = 1600
+
+        private const val LAYOUT_MANAGER_GRID_MEDIUM = 1
+        private const val LAYOUT_MANAGER_GRID_EXPANDED = 2
+        private const val LAYOUT_MANAGER_GRID_LARGE = 3
+        private const val LAYOUT_MANAGER_GRID_EXTRA_LARGE = 4
     }
 }
