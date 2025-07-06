@@ -1,5 +1,6 @@
 package com.example.serebro_gallery.presentation.swipe_feed
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.serebro_gallery.R
 import com.example.serebro_gallery.databinding.FragmentSwipeFeedBinding
 import com.example.serebro_gallery.domain.models.Photo
 import com.example.serebro_gallery.domain.models.PhotoItem
@@ -21,6 +24,9 @@ import com.example.serebro_gallery.presentation.viewmodel.ExhibitionViewModel
 import com.example.serebro_gallery.presentation.viewmodel.PhotoViewModel
 import kotlinx.coroutines.launch
 
+/**
+ * Экран отображения фотографий с возможностью добавления их в избранное
+ */
 class SwipeFeedFragment : Fragment() {
 
     private var _binding: FragmentSwipeFeedBinding? = null
@@ -41,7 +47,7 @@ class SwipeFeedFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentSwipeFeedBinding.inflate(inflater, container, false)
         return binding.root
@@ -70,8 +76,13 @@ class SwipeFeedFragment : Fragment() {
 
         nextButton.setOnClickListener {
             if (currentPhotoIndex < photoList.size)
-            showNextPhoto()
+                showNextPhoto()
         }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun changePhotoCounter(img: Int) {
+        binding.photoCounter.text = "$img / ${photoList.size}"
     }
 
     private fun observeViewModel() {
@@ -94,11 +105,18 @@ class SwipeFeedFragment : Fragment() {
 
         Glide.with(this)
             .load(currentPhoto.link.toUri())
+            .placeholder(R.drawable.empty_foto_field)
+            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .into(binding.swipedImage)
 
         binding.imageAuthorName.text = currentPhoto.name
+
+        changePhotoCounter(currentPhotoIndex + PHOTO_COUNTER_ADDITIONAL_NUM_FOR_INDEX)
     }
 
+    /**
+     *
+     */
     private fun showNextPhoto() {
         if (photoList.isEmpty()) return
 
@@ -120,6 +138,9 @@ class SwipeFeedFragment : Fragment() {
             .start()
     }
 
+    /**
+     * Диалоговое окно отображается при достижении конца списка фотографий
+     */
     private fun showEndOfListDialog() {
         AlertDialog.Builder(requireContext())
             .setTitle("Конец галереи")
@@ -134,6 +155,9 @@ class SwipeFeedFragment : Fragment() {
             .show()
     }
 
+    /**
+     * Просмотр списка фотографий заново
+     */
     private fun resetGallery() {
         currentPhotoIndex = START_INDEX
         showNextPhoto()
@@ -151,10 +175,12 @@ class SwipeFeedFragment : Fragment() {
     }
 
     private companion object {
+        private const val PHOTO_COUNTER_ADDITIONAL_NUM_FOR_INDEX = 1
+
         private const val START_INDEX = -1
 
         private const val IMAGE_ALPHA_ON = 1f
-        private const val IMAGE_DURATION = 200L
+        private const val IMAGE_DURATION = 300L
         private const val IMAGE_ALPHA_OFF = 0f
     }
 }

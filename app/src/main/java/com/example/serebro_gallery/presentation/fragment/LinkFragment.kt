@@ -37,7 +37,7 @@ class LinkFragment : Fragment() {
             Link("Принять участие", R.id.to_form_filling_graph)
         )
 
-        (requireActivity() as? MainActivity)?.updateToolbarTitle("")
+        (requireActivity() as? MainActivity)?.setTitle("")
 
         binding.rvLinks.apply {
             layoutManager = LinearLayoutManager(requireContext())

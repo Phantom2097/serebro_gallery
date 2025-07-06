@@ -1,6 +1,6 @@
 <resources>
-    <string name="likeButton">Like Button</string>
-    <string name="nextButton">Next Button</string>
+    <string name="likeButton">Like</string>
+    <string name="nextButton">Next</string>
     <string name="imageAuthorNameText">Имя Автора Фотографии</string>
     <string name="swipeFeedButtonText">Добавь фотографии в избранное</string>
     <string name="tv_description_text">Description</string>

@@ -11,7 +11,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="8dp"
         app:cardCornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -47,6 +47,8 @@
                 style="@style/Text.Golos.MiddleBeauty"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="3"
                 tools:text="Name" />
 
             <TextView
@@ -54,7 +56,9 @@
                 style="@style/Text.Golos.Small"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
                 android:gravity="center"
+                android:maxLines="3"
                 tools:text="Description" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
