@@ -55,11 +55,9 @@ truth = { module = "com.google.truth:truth", version.ref = "truth" }
 androidx-navigation = ["androidx-navigation-fragment", "androidx-navigation-ui"]
 androidx-room = ["androidx-room-ktx", "androidx-room-runtime"]
 
-
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
-

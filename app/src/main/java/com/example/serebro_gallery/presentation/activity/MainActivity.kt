@@ -12,15 +12,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.serebro_gallery.R
-import com.example.serebro_gallery.data.AppDatabase
-import com.example.serebro_gallery.databinding.ActivityMainBinding
-import com.example.serebro_gallery.domain.repository.PhotoRepository
-import com.example.serebro_gallery.presentation.viewmodel.MainViewModel
-import com.example.serebro_gallery.presentation.viewmodel.PhotoViewModel
+import com.example.serebro_gallery.presentation.shared_viewmodel.PhotoViewModel
+import ru.null_checkers.common.entity.SharedViewModel
+import ru.null_checkers.data.local.database.AppDatabase
+import ru.null_checkers.data.local.repository.PhotoRepository
+import ru.null_checkers.exhibition.databinding.ActivityMainBinding
+import ru.null_checkers.exhibition.presentation.exhibition_list.MainViewModel
 import ru.null_checkers.ui.databinding.AppActionBarBinding
 import ru.null_checkers.ui.toolbar.ToolbarController
 
-class MainActivity : AppCompatActivity(), ToolbarController {
+class MainActivity : AppCompatActivity(), ToolbarController, SharedViewModel {
     private lateinit var binding: ActivityMainBinding
     private lateinit var toolbarBinding: AppActionBarBinding
 
@@ -57,7 +58,7 @@ class MainActivity : AppCompatActivity(), ToolbarController {
         }
 
         toolbarBinding.btnMenu.setOnClickListener {
-            val navController = findNavController(R.id.nav_host)
+            val navController = findNavController(ru.null_checkers.exhibition.R.id.nav_host)
 
             if (navController.currentDestination?.id == R.id.linkFragment) {
                 if (lastFragmentId != null) {
@@ -75,9 +76,9 @@ class MainActivity : AppCompatActivity(), ToolbarController {
     private fun navigateToMain() {
         try {
             viewModel.clearSelectedItem()
-            val navController = findNavController(R.id.nav_host)
-            navController.popBackStack(R.id.mainFragment, inclusive = false)
-            navController.navigate(R.id.mainFragment)
+            val navController = findNavController(ru.null_checkers.exhibition.R.id.nav_host)
+            navController.popBackStack(ru.null_checkers.exhibition.R.id.mainFragment, inclusive = false)
+            navController.navigate(ru.null_checkers.exhibition.R.id.mainFragment)
 
         } catch (e: Exception) {
             Log.e("NAV", "Navigation error", e)
@@ -87,8 +88,8 @@ class MainActivity : AppCompatActivity(), ToolbarController {
     private fun navigateToMenu() {
         try {
             viewModel.clearSelectedItem()
-            
-            val navController = findNavController(R.id.nav_host)
+
+            val navController = findNavController(ru.null_checkers.exhibition.R.id.nav_host)
 
             if (navController.currentDestination?.id != R.id.linkFragment) {
                 lastFragmentId = navController.currentDestination?.id
@@ -103,7 +104,7 @@ class MainActivity : AppCompatActivity(), ToolbarController {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return findNavController(R.id.nav_host).navigateUp() || super.onSupportNavigateUp()
+        return findNavController(ru.null_checkers.exhibition.R.id.nav_host).navigateUp() || super.onSupportNavigateUp()
     }
 
     /**
@@ -114,11 +115,11 @@ class MainActivity : AppCompatActivity(), ToolbarController {
     private fun redefineOnBackPressed() {
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                findNavController(R.id.nav_host).apply {
+                findNavController(ru.null_checkers.exhibition.R.id.nav_host).apply {
                     if (currentDestination?.label == "fragment_main") {
                         finish()
                     } else {
-                        findNavController(R.id.nav_host).navigateUp()
+                        findNavController(ru.null_checkers.exhibition.R.id.nav_host).navigateUp()
                     }
                 }
             }
@@ -140,7 +141,7 @@ class MainActivity : AppCompatActivity(), ToolbarController {
     }
 
     // Функция для доступа к ViewModel из фрагментов
-    fun getSharedPhotoViewModel(): PhotoViewModel {
+    override fun getSharedPhotoViewModel(): PhotoViewModel {
         return ViewModelProvider(this, viewModelFactory)[PhotoViewModel::class.java]
     }
 
