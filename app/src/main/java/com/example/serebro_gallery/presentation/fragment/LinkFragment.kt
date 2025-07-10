@@ -29,7 +29,7 @@ class LinkFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val links = listOf(
-            Link("Главная", R.id.mainFragment),
+            Link("Главная", ru.null_checkers.exhibition.R.id.exhibition_nav_graph),
             Link("О проекте", R.id.aboutProjectFragment),
             Link("Контакты", R.id.contactsFragment),
             Link("Партнёры", R.id.partnersFragment),

@@ -7,16 +7,17 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import ru.null_checkers.common.models.MediaFile
+import ru.null_checkers.common.models.UserForm
+import ru.null_checkers.common.shared_view_model.OnItemClick
 import ru.null_checkers.common.use_cases.PickImageFromGallery
 import ru.null_checkers.common.use_cases_impls.PickImageFromGalleryUseCase
 import ru.null_checkers.form_filling_screen.domain.factory.UrlForOnlineFormFactory
-import ru.null_checkers.form_filling_screen.domain.models.UserForm
 import ru.null_checkers.form_filling_screen.domain.use_cases.ShowOpenUrlDialog
 import ru.null_checkers.form_filling_screen.domain.use_cases_impls.ShowOpenUrlDialogUseCase
 
 class FormFillingViewModel(
     private val showOpenUrlDialog: ShowOpenUrlDialog = ShowOpenUrlDialogUseCase(),
-    private val pickImageFromGallery: PickImageFromGallery = PickImageFromGalleryUseCase()
+    private val pickImageFromGallery: PickImageFromGallery = PickImageFromGalleryUseCase(),
 ) : ViewModel(), OnItemClick {
 
     private var _userFieldsState = MutableStateFlow<UserForm>(UserForm())
@@ -34,7 +35,7 @@ class FormFillingViewModel(
         _userFieldsState.update { it.copy(image = file) }
     }
 
-    fun getUrl() : String {
+    fun getUrl(): String {
         userFieldsState.value.apply {
             return UrlForOnlineFormFactory.sendDataToForm(name, tgAccount)
         }

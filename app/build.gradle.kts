@@ -43,8 +43,12 @@ dependencies {
     /***************** Project modules *****************/
     implementation(project(":feature:form_filling_screen"))
     implementation(project(":feature:project_information"))
+    implementation(project(":feature:user_profile"))
+    implementation(project(":feature:exhibition"))
+
     implementation(project(":core:common"))
     implementation(project(":core:ui"))
+    implementation(project(":core:data"))
 
     /***************** Libs *****************/
     // Android
@@ -55,7 +59,7 @@ dependencies {
     implementation(libs.glide)
 
     // Facebook Shimmer
-    implementation("com.facebook.shimmer:shimmer:0.5.0")
+    implementation(libs.shimmer)
 
     // Navigation
     implementation(libs.androidx.navigation.fragment)
@@ -78,11 +82,4 @@ dependencies {
     // ViewModel
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
-
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-scalars:2.11.0")
-
-    implementation("org.jsoup:jsoup:1.17.2")
-    implementation(libs.okhttp)
-    implementation(libs.logging.interceptor)
 }
