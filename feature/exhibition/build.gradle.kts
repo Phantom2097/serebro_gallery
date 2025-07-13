@@ -57,15 +57,19 @@ dependencies {
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
 
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-scalars:2.11.0")
+
+    // Swipe-refresh
+    implementation(libs.androidx.swiperefreshlayout)
+
     // ViewModel
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     // UI
     implementation(libs.material)
-
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-scalars:2.11.0")
 
     implementation("org.jsoup:jsoup:1.17.2")
     implementation(libs.okhttp)

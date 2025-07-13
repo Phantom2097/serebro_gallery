@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.facebook.shimmer.ShimmerFrameLayout
 import ru.null_checkers.exhibition.R
-import ru.null_checkers.exhibition.presentation.exhibition_list.adapter.ExhibitionAdapter
 import ru.null_checkers.exhibition.databinding.FragmentMainBinding
+import ru.null_checkers.exhibition.presentation.exhibition_list.adapter.ExhibitionAdapter
 import ru.null_checkers.exhibition.presentation.exhibition_list.state.ExhibitionsState
 import ru.null_checkers.ui.toolbar.ToolbarController
 
@@ -52,6 +52,7 @@ class MainFragment : Fragment() {
         }
 
         setupTitle()
+        setupRefresh()
 
         binding.rcvExhibition.apply {
             layoutManager = setupLayoutManagerByWidth()
@@ -91,6 +92,8 @@ class MainFragment : Fragment() {
                         """.trimIndent()
                         )
                     }
+
+                    binding.swipeRefresh.isRefreshing = false
                 }
 
                 is ExhibitionsState.Error -> {
@@ -98,6 +101,8 @@ class MainFragment : Fragment() {
                     shimmerLayout.stopShimmer()
                     recyclerView.visibility = View.GONE
                     ops.visibility = View.VISIBLE
+
+                    binding.swipeRefresh.isRefreshing = false
                 }
             }
         }
@@ -155,6 +160,16 @@ class MainFragment : Fragment() {
                     findNavController().navigate(R.id.action_mainFragment_to_exhibitionFragment)
                 }
             }
+        }
+    }
+
+    /**
+     * Перезагрузка страницы
+     */
+    private fun setupRefresh() {
+        binding.swipeRefresh.setOnRefreshListener {
+            Log.d("Refresh", "Call Refresh")
+            viewModel.loadExhibitions()
         }
     }
 
