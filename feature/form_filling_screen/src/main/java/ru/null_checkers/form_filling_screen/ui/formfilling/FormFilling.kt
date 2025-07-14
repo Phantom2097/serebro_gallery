@@ -1,6 +1,7 @@
 package ru.null_checkers.form_filling_screen.ui.formfilling
 
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -18,12 +19,15 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.launch
+import ru.null_checkers.common.autocomplete.ProfileDataViewModel
+import ru.null_checkers.common.autocomplete.ProfileViewModelFactory
 import ru.null_checkers.common.models.MediaFile
 import ru.null_checkers.form_filling_screen.databinding.FragmentFormFillingBinding
 import ru.null_checkers.ui.toolbar.ToolbarController
@@ -34,7 +38,11 @@ class FormFilling : Fragment() {
     val binding get() = _binding!!
 
     private val viewModel by activityViewModels<FormFillingViewModel>()
-
+    private val dataViewModel: ProfileDataViewModel by viewModels {
+        ProfileViewModelFactory(
+            requireContext().getSharedPreferences("ProfilePrefs", Context.MODE_PRIVATE)
+        )
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -64,6 +72,14 @@ class FormFilling : Fragment() {
             permissions,
             0
         )
+        viewLifecycleOwner.lifecycleScope.launch {
+            dataViewModel.profileData.collect { profile ->
+                profile?.let {
+                    binding.userNameField.setText(it.name + " " + it.surname)
+                    binding.userTelegramField.setText(it.telegram)
+                }
+            }
+        }
     }
 
     private fun setTitle() {

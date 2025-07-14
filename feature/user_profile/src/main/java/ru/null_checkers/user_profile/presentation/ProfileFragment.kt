@@ -17,13 +17,21 @@ import androidx.core.net.toUri
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import ru.null_checkers.common.models.MediaFile
 import ru.null_checkers.ui.toolbar.ToolbarController
 import ru.null_checkers.user_profile.R
+import ru.null_checkers.common.autocomplete.ProfileDataViewModel
+import ru.null_checkers.common.autocomplete.ProfileViewModelFactory
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
+    val profileViewModel: ProfileDataViewModel by viewModels {
+        ProfileViewModelFactory(
+            requireContext().getSharedPreferences("ProfilePrefs", Context.MODE_PRIVATE)
+        )
+    }
     private lateinit var nameEditText: EditText
     private lateinit var surnameEditText: EditText
     private lateinit var tgEditText: EditText
@@ -76,7 +84,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 putString("SURNAME", surname)
                 putString("TG", tg)
             }
-
+            profileViewModel.saveProfile(
+                name,
+                surname,
+                tg
+            )
             Toast.makeText(requireContext(), "Данные сохранены", Toast.LENGTH_SHORT).show()
 
         }
