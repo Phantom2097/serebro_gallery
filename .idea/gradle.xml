@@ -22,6 +22,7 @@
             <option value="$PROJECT_DIR$/feature/user_profile" />
           </set>
         </option>
+        <option name="resolveExternalAnnotations" value="false" />
       </GradleProjectSettings>
     </option>
   </component>
