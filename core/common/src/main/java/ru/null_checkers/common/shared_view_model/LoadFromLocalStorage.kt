@@ -20,7 +20,8 @@ class LoadFromLocalStorage(
             val photo = Photo(
                 id = System.currentTimeMillis(),
                 imagePath = imageUri.toString(),
-                isFavorite = false
+                isFavorite = false,
+                compId = "-999"
             )
             viewModel.currPhoto.value = photo
         }

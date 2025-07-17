@@ -16,9 +16,11 @@ class ExhibitionViewModel : ViewModel() {
 
     private val _prizephoto = MutableLiveData<PrizePhoto>()
     val prizephoto: LiveData<PrizePhoto> = _prizephoto
+    lateinit var exhibitionName: String
 
-    fun loadPhotos(pageUrl: String?) {
+    fun loadPhotos(pageUrl: String?, exName: String) {
         viewModelScope.launch {
+            exhibitionName = exName
             try {
                 val htmlContent = RetrofitHelper.creatPhotosRetrofit().getPhotosPage(pageUrl)
                 _photos.postValue(parseExhibitions(htmlContent))

@@ -24,4 +24,7 @@ interface PhotoDao {
 
     @Query("UPDATE photos SET isFavorite = :isFavorite WHERE id = :id")
     suspend fun setFavorite(id: Long, isFavorite: Boolean)
+
+    @Query("SELECT compId FROM photos WHERE isFavorite = 1")
+    suspend fun getAllFavoriteCompIds(): List<String>
 }

@@ -62,9 +62,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/nextButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/heart_filled">
 
             <ImageView
+                android:id="@+id/heart_img"
                 android:layout_width="match_parent"
                 android:layout_height="72dp"
                 android:contentDescription="@string/likeButton"

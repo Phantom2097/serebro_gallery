@@ -55,6 +55,7 @@ class PhotoViewModel(private val repository: PhotoRepository) : ViewModel(), Pho
     private fun Photo.toEntity(): PhotoEntity = PhotoEntity(
         id = id,
         imagePath = imagePath,
-        isFavorite = isFavorite
+        isFavorite = isFavorite,
+        compId = compId
     )
 }

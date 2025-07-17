@@ -37,7 +37,7 @@ class ExhibitionFragment : Fragment(R.layout.fragment_exhibition) {
 
         binding.tvDescription.text = exhibition?.description
 
-        photoViewModel.loadPhotos(exhibition?.link)
+        photoViewModel.loadPhotos(exhibition?.link, exhibition?.name ?: "Unknown")
 
         photoViewModel.prizephoto.observe(viewLifecycleOwner) { photo ->
             val placeholder = ru.null_checkers.ui.R.drawable.logo_black_2
