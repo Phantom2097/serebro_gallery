@@ -40,6 +40,8 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:data"))
 
+    implementation(project(":feature:form_filling_screen"))
+
     // Android
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

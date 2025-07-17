@@ -36,7 +36,7 @@ class MainViewModel : ViewModel() {
         _state.value = ExhibitionsState.Loading
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                delay(500)
+                //delay(500)
                 val htmlContent = RetrofitHelper.creatExhibitionRetrofit().getExhibitionsPage()
                 _exhibitions.postValue(parseExhibitions(htmlContent))
 

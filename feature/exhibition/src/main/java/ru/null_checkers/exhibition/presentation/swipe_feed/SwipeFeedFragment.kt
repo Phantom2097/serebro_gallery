@@ -104,12 +104,12 @@ class SwipeFeedFragment : Fragment() {
         val currentPhoto = photoList[currentPhotoIndex]
 
         Glide.with(this)
-            .load(currentPhoto.link.toUri())
+            .load(currentPhoto.imageLink.toUri())
             .placeholder(R.drawable.empty_foto_field)
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .into(binding.swipedImage)
 
-        binding.imageAuthorName.text = currentPhoto.name
+        binding.imageAuthorName.text = currentPhoto.author
 
         changePhotoCounter(currentPhotoIndex + PHOTO_COUNTER_ADDITIONAL_NUM_FOR_INDEX)
     }
@@ -165,7 +165,7 @@ class SwipeFeedFragment : Fragment() {
 
     private fun PhotoItem.toPhoto() = Photo(
         id = System.currentTimeMillis(),
-        imagePath = this.link,
+        imagePath = this.imageLink,
         isFavorite = true
     )
 

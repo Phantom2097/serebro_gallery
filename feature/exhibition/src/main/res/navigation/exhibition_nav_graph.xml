@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_exhibitionFragment_to_swipeFeedFragment"
             app:destination="@id/swipeFeedFragment" />
+        <action
+            android:id="@+id/to_form_filling"
+            app:destination="@id/formFillingFragment" />
     </fragment>
 
     <fragment
@@ -29,4 +32,9 @@
         android:name="ru.null_checkers.exhibition.presentation.swipe_feed.SwipeFeedFragment"
         android:label="fragment_swipe_feed"
         tools:layout="@layout/fragment_swipe_feed" />
+
+    <fragment
+        android:id="@+id/formFillingFragment"
+        android:name="ru.null_checkers.form_filling_screen.ui.formfilling.FormFilling"
+        android:label="FormFillingFragment" />
 </navigation>
