@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import ru.null_checkers.exhibition.R
 import ru.null_checkers.exhibition.databinding.FragmentExhibitionBinding
+import ru.null_checkers.exhibition.domain.CheckDeadline
 import ru.null_checkers.exhibition.presentation.exhibition_list.MainViewModel
 import ru.null_checkers.exhibition.presentation.exhibition_list.state.AllPhotosState
 import ru.null_checkers.exhibition.presentation.exhibition_list.state.PrizePhotoState
@@ -40,7 +41,7 @@ class ExhibitionFragment : Fragment(R.layout.fragment_exhibition) {
             .error(ru.null_checkers.ui.R.drawable.logo_black_2)
             .into(binding.ivMainPhoto)
 
-        exhibitionViewModel.loadPhotos(exhibition?.link)
+        exhibitionViewModel.loadPhotos(exhibition?.link, exhibition?.name ?: "Unknown")
 
         exhibitionViewModel.description.observe(viewLifecycleOwner) { text ->
             if (text.isNullOrEmpty()) {
@@ -50,7 +51,7 @@ class ExhibitionFragment : Fragment(R.layout.fragment_exhibition) {
             }
         }
 
-        val showButton = exhibitionViewModel.checkDeadline(exhibition?.description)
+        val showButton = CheckDeadline.checkDeadline(exhibition?.description)
         binding.deadlineButton.visibility = if (showButton) View.VISIBLE else View.GONE
         if (showButton) {
             binding.deadlineButton.setOnClickListener {
@@ -110,7 +111,7 @@ class ExhibitionFragment : Fragment(R.layout.fragment_exhibition) {
                 mainViewModel.clearSelectedItem()
             }
         }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
     private fun setupTitle() {

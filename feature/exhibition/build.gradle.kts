@@ -40,7 +40,7 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:data"))
 
-    implementation(project(":feature:form_filling_screen"))
+    implementation(project(":feature:form_filling_screen")) //TODO: стоит убрать отсюда
 
     // Android
     implementation(libs.androidx.core.ktx)

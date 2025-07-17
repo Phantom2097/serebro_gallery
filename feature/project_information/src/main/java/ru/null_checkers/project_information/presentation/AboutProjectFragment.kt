@@ -1,12 +1,15 @@
 package ru.null_checkers.project_information.presentation
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.VideoView
 import androidx.fragment.app.Fragment
 import com.facebook.shimmer.ShimmerFrameLayout
 import ru.null_checkers.project_information.R
@@ -14,7 +17,7 @@ import ru.null_checkers.ui.toolbar.ToolbarController
 
 class AboutProjectFragment : Fragment() {
 
-    private lateinit var webView: WebView
+    private lateinit var videoView: VideoView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,45 +32,35 @@ class AboutProjectFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Если оставить в onCreateView, то фрагмент долго грузится
-        webView = view.findViewById(R.id.webView)
+        videoView = view.findViewById(R.id.videoView)
 
-        // Ненужное дублирование
-//        val webView = view.findViewById<WebView>(R.id.webView)
         val shimmerView = view.findViewById<ShimmerFrameLayout>(R.id.shimmerView)
 
         setupTitle()
 
-        webView.settings.javaScriptEnabled = true
-
-        webView.webViewClient = object : WebViewClient() {
-            override fun onPageFinished(view: WebView?, url: String?) {
-                shimmerView.stopShimmer()
-                shimmerView.visibility = View.GONE
-                webView.visibility = View.VISIBLE
-            }
-        }
-
         shimmerView.startShimmer()
-        val embedCode = """
-             <iframe 
-                src="https://vk.com/video_ext.php?oid=-213066984&id=456239018&hash=abc123&hd=2" 
-                width="100%" 
-                height="300" 
-                frameborder="0" 
-             ></iframe>
-        """
 
-        webView.loadDataWithBaseURL(
-            null,
-            "<html><body>$embedCode</body></html>",
-            "text/html",
-            "UTF-8",
-            null
-        )
+        try {
+            val videoUri = Uri.parse("android.resource://${requireContext().packageName}/${R.raw.video_about}")
+
+            videoView.setVideoURI(videoUri)
+            videoView.setOnPreparedListener { mp ->
+                mp.start() // Запуск только после готовности
+                mp.isLooping = true // Опционально: зацикливание
+                shimmerView.stopShimmer()
+            }
+
+            videoView.setOnErrorListener { _, what, extra ->
+                Log.e("VIDEO", "Ошибка воспроизведения: $what/$extra")
+                true
+            }
+        } catch (e: Exception) {
+            Log.e("VIDEO", "Ошибка инициализации: ${e.message}")
+        }
     }
 
     override fun onDestroyView() {
-        webView.destroy()
+        //videoView.destroy()
         super.onDestroyView()
     }
 
