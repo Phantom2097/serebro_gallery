@@ -14,4 +14,6 @@ data class PhotoEntity(
     val imagePath: String,
 
     val isFavorite: Boolean,
+
+    val compId: String
 )

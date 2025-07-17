@@ -1,8 +1,10 @@
 package ru.null_checkers.exhibition.presentation.swipe_feed
 
+import android.R.attr.delay
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
@@ -15,6 +17,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.null_checkers.common.entity.SharedViewModel
 import ru.null_checkers.common.models.Photo
@@ -35,6 +38,7 @@ class SwipeFeedFragment : Fragment() {
     private lateinit var photoViewModel: PhotoSharedViewModel
     private val exhibitionViewModel: ExhibitionViewModel by activityViewModels()
 
+    var arr_favorite = mutableSetOf<String>()
     /**
      * Индекс фотографии из списка
      */
@@ -60,24 +64,39 @@ class SwipeFeedFragment : Fragment() {
 
         initButtons()
         observeViewModel()
+
+
     }
 
     private fun initViewModel() {
         photoViewModel = (activity as SharedViewModel).getSharedPhotoViewModel()
+        photoViewModel.getFavorite()
+
+//        for (i in photoViewModel.favorite.value){
+//            arr_favorite.add(i.compId)
+//        }
+
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun initButtons() = with(binding) {
         likeButton.setOnClickListener {
+            heartImg.setImageResource(R.drawable.heart_filled)
+
             photoViewModel.addItem(
-                photoList[currentPhotoIndex].toPhoto()
+                photoList[currentPhotoIndex].toPhoto(currentPhotoIndex)
             )
-            showNextPhoto()
+            arr_favorite.add(photoList[currentPhotoIndex].toPhoto(currentPhotoIndex).compId)
+            heartImg.postDelayed({
+                showNextPhoto()
+            }, 500)
         }
 
         nextButton.setOnClickListener {
             if (currentPhotoIndex < photoList.size)
                 showNextPhoto()
         }
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -94,6 +113,15 @@ class SwipeFeedFragment : Fragment() {
                         showNextPhoto()
                     }
                 }
+                launch {
+                    photoViewModel.favorite.collect { favorites ->
+                        arr_favorite.clear()
+                        arr_favorite.addAll(favorites.map { it.compId })
+                        if (photoList.isNotEmpty() && currentPhotoIndex in photoList.indices) {
+                            showCurrentPhoto()
+                        }
+                    }
+                }
             }
         }
     }
@@ -102,6 +130,11 @@ class SwipeFeedFragment : Fragment() {
         if (photoList.isEmpty() || currentPhotoIndex !in photoList.indices) return
 
         val currentPhoto = photoList[currentPhotoIndex]
+        if (currentPhoto.toPhoto(currentPhotoIndex).compId in arr_favorite){
+            binding.heartImg.setImageResource(R.drawable.heart_filled)
+        } else{
+            binding.heartImg.setImageResource(R.drawable.heart)
+        }
 
         Glide.with(this)
             .load(currentPhoto.link.toUri())
@@ -163,10 +196,11 @@ class SwipeFeedFragment : Fragment() {
         showNextPhoto()
     }
 
-    private fun PhotoItem.toPhoto() = Photo(
+    private fun PhotoItem.toPhoto(index: Int) = Photo(
         id = System.currentTimeMillis(),
         imagePath = this.link,
-        isFavorite = true
+        isFavorite = true,
+        compId = exhibitionViewModel.exhibitionName + index.toString()
     )
 
     override fun onDestroyView() {
