@@ -11,7 +11,8 @@ class PhotoRepository(private val photoDao: PhotoDao) {
         return Photo(
             id = this.id,
             imagePath = this.imagePath,
-            isFavorite = this.isFavorite
+            isFavorite = this.isFavorite,
+            compId = this.compId
         )
     }
 
