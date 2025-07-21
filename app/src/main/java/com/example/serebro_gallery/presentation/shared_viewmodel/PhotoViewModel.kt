@@ -34,6 +34,12 @@ class PhotoViewModel(private val repository: PhotoRepository) : ViewModel(), Pho
         }
     }
 
+    override fun deleteFavorite(item: Photo) {
+        viewModelScope.launch {
+            repository.deleteFavorite(item.toEntity())
+        }
+    }
+
     override fun getGalleryPhotos() {
         viewModelScope.launch {
             repository.getGalleryPhotosFlow()

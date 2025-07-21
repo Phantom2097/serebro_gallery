@@ -27,4 +27,7 @@ interface PhotoDao {
 
     @Query("SELECT compId FROM photos WHERE isFavorite = 1")
     suspend fun getAllFavoriteCompIds(): List<String>
+
+    @Query("DELETE FROM photos WHERE compId = :compId")
+    suspend fun deleteFavorite(compId: String)
 }

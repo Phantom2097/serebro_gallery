@@ -14,4 +14,5 @@ interface PhotoSharedViewModel {
     fun addItem(item: Photo)
     fun getGalleryPhotos()
     fun getFavorite()
+    fun deleteFavorite(item: Photo)
 }
