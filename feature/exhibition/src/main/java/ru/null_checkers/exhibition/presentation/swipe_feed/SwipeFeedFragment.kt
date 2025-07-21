@@ -2,12 +2,15 @@ package ru.null_checkers.exhibition.presentation.swipe_feed
 
 import android.R.attr.delay
 import android.annotation.SuppressLint
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -26,6 +29,7 @@ import ru.null_checkers.exhibition.R
 import ru.null_checkers.exhibition.databinding.FragmentSwipeFeedBinding
 import ru.null_checkers.exhibition.models.PhotoItem
 import ru.null_checkers.exhibition.presentation.exhibition.ExhibitionViewModel
+import kotlin.math.abs
 
 /**
  * Экран отображения фотографий с возможностью добавления их в избранное
@@ -39,6 +43,7 @@ class SwipeFeedFragment : Fragment() {
     private val exhibitionViewModel: ExhibitionViewModel by activityViewModels()
 
     var arr_favorite = mutableSetOf<String>()
+
     /**
      * Индекс фотографии из списка
      */
@@ -81,22 +86,100 @@ class SwipeFeedFragment : Fragment() {
     @SuppressLint("ClickableViewAccessibility")
     private fun initButtons() = with(binding) {
         likeButton.setOnClickListener {
-            heartImg.setImageResource(R.drawable.heart_filled)
-
-            photoViewModel.addItem(
-                photoList[currentPhotoIndex].toPhoto(currentPhotoIndex)
-            )
-            arr_favorite.add(photoList[currentPhotoIndex].toPhoto(currentPhotoIndex).compId)
-            heartImg.postDelayed({
-                showNextPhoto()
-            }, 500)
+            val curr = photoList[currentPhotoIndex].toPhoto(currentPhotoIndex)
+            if (curr.compId in arr_favorite) {
+                // Если уже в избранном - выполнить действие удаления
+                heartImg.setImageResource(R.drawable.heart)
+                photoViewModel.deleteFavorite(curr)
+                arr_favorite.remove(curr.compId)
+            } else {
+                heartImg.setImageResource(R.drawable.heart_filled)
+                photoViewModel.addItem(curr)
+                arr_favorite.add(curr.compId)
+            }
         }
-
         nextButton.setOnClickListener {
             if (currentPhotoIndex < photoList.size)
                 showNextPhoto()
         }
+        swipedImage.setOnTouchListener(object : View.OnTouchListener {
+            private var x1: Float = 0f
+            private var x2: Float = 0f
+            private val MIN_DISTANCE = 150
 
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                when (event?.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        x1 = event.x
+                        return true
+                    }
+
+                    MotionEvent.ACTION_UP -> {
+                        x2 = event.x
+                        val deltaX = x2 - x1
+
+                        if (abs(deltaX) > MIN_DISTANCE) {
+                            if (deltaX > 0) {
+                                // Свайп вправо - предыдущая фотография
+                                showPreviousPhoto()
+                            } else {
+                                // Свайп влево - следующая фотография
+                                showNextPhoto()
+                            }
+                        }
+                        return true
+                    }
+                }
+                return false
+            }
+        })
+    }
+
+    private fun showNextPhoto() {
+        if (photoList.isEmpty()) return
+
+        currentPhotoIndex++
+
+        if (currentPhotoIndex >= photoList.size) {
+            showEndOfListDialog()
+            return
+        }
+
+        binding.swipedImage.animate()
+            .translationXBy(-binding.swipedImage.width.toFloat())
+            .alpha(IMAGE_ALPHA_OFF)
+            .setDuration(IMAGE_DURATION)
+            .withEndAction {
+                binding.swipedImage.translationX = binding.swipedImage.width.toFloat()
+                showCurrentPhoto()
+                binding.swipedImage.animate()
+                    .translationX(0f)
+                    .alpha(IMAGE_ALPHA_ON)
+                    .setDuration(IMAGE_DURATION)
+                    .start()
+            }
+            .start()
+    }
+
+    private fun showPreviousPhoto() {
+        if (photoList.isEmpty() || currentPhotoIndex <= 0) return
+
+        currentPhotoIndex--
+
+        binding.swipedImage.animate()
+            .translationXBy(binding.swipedImage.width.toFloat())
+            .alpha(IMAGE_ALPHA_OFF)
+            .setDuration(IMAGE_DURATION)
+            .withEndAction {
+                binding.swipedImage.translationX = -binding.swipedImage.width.toFloat()
+                showCurrentPhoto()
+                binding.swipedImage.animate()
+                    .translationX(0f)
+                    .alpha(IMAGE_ALPHA_ON)
+                    .setDuration(IMAGE_DURATION)
+                    .start()
+            }
+            .start()
     }
 
     @SuppressLint("SetTextI18n")
@@ -130,15 +213,15 @@ class SwipeFeedFragment : Fragment() {
         if (photoList.isEmpty() || currentPhotoIndex !in photoList.indices) return
 
         val currentPhoto = photoList[currentPhotoIndex]
-        if (currentPhoto.toPhoto(currentPhotoIndex).compId in arr_favorite){
+        if (currentPhoto.toPhoto(currentPhotoIndex).compId in arr_favorite) {
             binding.heartImg.setImageResource(R.drawable.heart_filled)
-        } else{
+        } else {
             binding.heartImg.setImageResource(R.drawable.heart)
         }
 
         Glide.with(this)
             .load(currentPhoto.imageLink.toUri())
-            .placeholder(R.drawable.empty_foto_field)
+            //.placeholder(R.drawable.empty_foto_field)
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .into(binding.swipedImage)
 
@@ -147,29 +230,6 @@ class SwipeFeedFragment : Fragment() {
         changePhotoCounter(currentPhotoIndex + PHOTO_COUNTER_ADDITIONAL_NUM_FOR_INDEX)
     }
 
-    /**
-     *
-     */
-    private fun showNextPhoto() {
-        if (photoList.isEmpty()) return
-
-        currentPhotoIndex++
-
-        if (currentPhotoIndex >= photoList.size) {
-            showEndOfListDialog()
-            return
-        }
-
-        showCurrentPhoto()
-
-        binding.swipedImage.animate()
-            .alpha(IMAGE_ALPHA_OFF)
-            .setDuration(IMAGE_DURATION)
-            .withEndAction {
-                binding.swipedImage.alpha = IMAGE_ALPHA_ON
-            }
-            .start()
-    }
 
     /**
      * Диалоговое окно отображается при достижении конца списка фотографий

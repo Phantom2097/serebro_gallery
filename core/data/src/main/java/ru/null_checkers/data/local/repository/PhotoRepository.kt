@@ -26,6 +26,10 @@ class PhotoRepository(private val photoDao: PhotoDao) {
             entities.map { it.toPhoto() }
         }
 
+    suspend fun deleteFavorite(photo: PhotoEntity) {
+        photoDao.deleteFavorite(photo.compId)
+    }
+
 
     suspend fun addPhoto(photo: PhotoEntity) = photoDao.insert(photo)
 
