@@ -37,7 +37,6 @@ class ExhibitionFragment : Fragment(R.layout.fragment_exhibition) {
 
         Glide.with(this)
             .load(exhibition?.afisha)
-            //.placeholder(ru.null_checkers.ui.R.drawable.logo_black_2)
             .error(ru.null_checkers.ui.R.drawable.logo_black_2)
             .into(binding.ivMainPhoto)
         println("${exhibition?.afisha}")
