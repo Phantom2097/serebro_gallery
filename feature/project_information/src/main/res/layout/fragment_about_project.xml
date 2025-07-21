@@ -96,15 +96,28 @@
             app:layout_constraintTop_toBottomOf="@id/tv_history_4"
             app:layout_constraintWidth_max="480dp" />
 
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:visibility="visible"
+            app:layout_constraintDimensionRatio="16:9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_history_5"
+            app:layout_constraintWidth_max="480dp" />
+
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmerView"
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_marginTop="20dp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_history_5">
+            app:layout_constraintTop_toBottomOf="@id/tv_history_5"
+            >
 
             <View
                 android:layout_width="match_parent"
@@ -112,16 +125,6 @@
                 android:background="@drawable/logo_white_2" />
         </com.facebook.shimmer.ShimmerFrameLayout>
 
-        <VideoView
-            android:id="@+id/videoView"
-            android:layout_width="wrap_content"
-            android:layout_height="250dp"
-            android:layout_marginTop="20dp"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_history_5"
-            app:layout_constraintWidth_max="480dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
