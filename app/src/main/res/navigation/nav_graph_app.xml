@@ -40,11 +40,6 @@
         android:id="@+id/form_filling_graph"
         app:graph="@navigation/form_filling_navigation" />
 
-    <action
-        android:id="@+id/to_form_filling_graph"
-        app:destination="@id/form_filling_navigation"
-        app:popUpTo="@id/mainFragment"
-        app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="ru.null_checkers.user_profile.presentation.FavoriteFragment"
@@ -55,6 +50,12 @@
         android:name="ru.null_checkers.user_profile.presentation.GalleryFragment"
         android:label="fragment_gallery"
         tools:layout="@layout/fragment_gallery" />
+
     <include app:graph="@navigation/exhibition_nav_graph" />
+
+    <action android:id="@+id/mainFragmentToFormFilling"
+        app:destination="@id/form_filling_navigation"
+        app:popUpTo="@id/nav_graph_app"
+        app:popUpToInclusive="true"/>
 
 </navigation>

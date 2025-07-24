@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="purple_700">#FF3700B3</color>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="inputTextHelpText">#FF3700B3</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00FF0000</color>
+
+    <color name="background">#FFFFFF</color>
+    <color name="backgroundSecondary">#FFFFFF</color> <!-- Для карточек и прочих штук -->
+    <color name="textColor">#000000</color>
+    <color name="textColorDisabled">#9A000000</color>
+
+    <color name="backgroundButton">#000000</color>
+    <color name="textColorButton">#DCDCDC</color>
+
+    <color name="boxStrokeColor">#000000</color>
+
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#000000</color>
 </resources>

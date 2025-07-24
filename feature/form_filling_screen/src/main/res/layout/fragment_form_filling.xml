@@ -17,7 +17,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/userNameFieldLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/SerebroInputTextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -25,7 +25,7 @@
             app:boxStrokeColor="@color/black"
             app:endIconMode="clear_text"
             app:helperText="*Обязательно"
-            app:helperTextTextColor="@color/purple_700"
+            app:helperTextTextColor="@color/inputTextHelpText"
             app:hintTextColor="@color/design_default_color_on_secondary"
             app:layout_constraintBottom_toTopOf="@+id/userTelegramFieldLayout"
             app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +54,7 @@
             app:boxStrokeColor="@color/black"
             app:endIconMode="clear_text"
             app:helperText="*Обязательно"
-            app:helperTextTextColor="@color/purple_700"
+            app:helperTextTextColor="@color/inputTextHelpText"
             app:hintTextColor="@color/design_default_color_on_secondary"
             app:layout_constraintBottom_toTopOf="@id/addImageCard"
             app:layout_constraintEnd_toEndOf="parent"

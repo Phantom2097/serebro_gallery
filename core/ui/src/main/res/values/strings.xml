@@ -14,8 +14,11 @@
     <string name="buttonForAddImageDescription">Кнопка для добавления изображения</string>
     <string name="formFillingLogoText">Форма регистрации</string>
     <string name="userNameFieldLayoutHint">Имя участника</string>
+    <string name="userSurnameFieldLayoutHint">Фамилия участника</string>
     <string name="userTelegramFieldLayoutHint">Telegram участника</string>
     <string name="textForAddImageText">Добавьте свой кадр</string>
     <string name="buttonApplyForAnExhibitionText">Отправить форму по почте</string>
     <string name="goToOnlineFormText">Заполнить форму онлайн</string>
+    <string name="menu_toolbar_button_description">Menu Toolbar Button</string>
+    <string name="home_toolbar_button_description">Home Toolbar Button</string>
 </resources>

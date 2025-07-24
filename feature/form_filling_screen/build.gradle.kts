@@ -38,8 +38,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:ui"))
     implementation(project(":core:common"))
+    implementation(project(":core:data"))
+    implementation(project(":core:ui"))
 
     // Android
     implementation(libs.androidx.core.ktx)

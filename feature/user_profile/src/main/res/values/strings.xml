@@ -2,4 +2,9 @@
 <resources>
     <string name="profileFragmentTitle">Профиль</string>
     <string name="profileIcon">Иконка профиля</string>
+    <string name="saveButtonText">Сохранить</string>
+    <string name="tabFavoriteText">Избранное</string>
+    <string name="tabSavedText">Галерея</string>
+    <string name="avatarImageDescription">Аватарка профиля</string>
+    <string name="addPhotoButtonText">Добавить</string>
 </resources>

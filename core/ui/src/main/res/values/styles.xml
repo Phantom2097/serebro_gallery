@@ -6,4 +6,12 @@
         <item name="android:textColor">@color/design_default_color_on_secondary</item>
     </style>
 
+    <style name="SerebroInputTextStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/boxStrokeColor</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">2dp</item>
+        <item name="helperTextTextColor">@color/inputTextHelpText</item>
+        <item name="hintTextColor">@color/boxStrokeColor</item>
+    </style>
+
 </resources>

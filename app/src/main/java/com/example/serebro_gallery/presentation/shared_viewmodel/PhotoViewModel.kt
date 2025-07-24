@@ -10,9 +10,9 @@ import kotlinx.coroutines.launch
 import ru.null_checkers.common.models.Photo
 import ru.null_checkers.common.shared_view_model.PhotoSharedViewModel
 import ru.null_checkers.data.local.entity.PhotoEntity
-import ru.null_checkers.data.local.repository.PhotoRepository
+import ru.null_checkers.data.local.repository.PhotoRepositoryImpl
 
-class PhotoViewModel(private val repository: PhotoRepository) : ViewModel(), PhotoSharedViewModel {
+class PhotoViewModel(private val repository: PhotoRepositoryImpl) : ViewModel(), PhotoSharedViewModel {
 
     private val _state = MutableStateFlow<List<Photo>>(listOf())
     override val state: StateFlow<List<Photo>> = _state.asStateFlow()

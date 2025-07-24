@@ -25,4 +25,8 @@
         <item name="contentInsetStart">4dp</item>
     </style>
 
+<!--    <style name="SerebroInputText" parent="@style/SerebroInputTextStyle">-->
+<!--        -->
+<!--    </style>-->
+
 </resources>

@@ -1,8 +1,11 @@
 package ru.null_checkers.exhibition.presentation.exhibition_list
 
 import android.app.Activity
+import android.content.Context.VIBRATOR_MANAGER_SERVICE
 import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.VibratorManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -169,7 +172,26 @@ class MainFragment : Fragment() {
     private fun setupRefresh() {
         binding.swipeRefresh.setOnRefreshListener {
             Log.d("Refresh", "Call Refresh")
+
+            vibrateOnRefresh()
+
             viewModel.loadExhibitions()
+        }
+    }
+
+    /**
+     * Виброотклик при обновлении списка
+     */
+    private fun vibrateOnRefresh() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val vibratorManager =
+                requireContext().getSystemService(VIBRATOR_MANAGER_SERVICE) as VibratorManager
+            val vibrator = vibratorManager.defaultVibrator
+            if (vibrator.hasVibrator()) {
+                vibrator.vibrate(
+                    VibrationEffect.createOneShot(VIBRATOR_REFRESH_TIME, VIBRATOR_REFRESH_AMPLITUDE)
+                )
+            }
         }
     }
 
@@ -185,6 +207,9 @@ class MainFragment : Fragment() {
     }
 
     private companion object {
+        private const val VIBRATOR_REFRESH_TIME = 50L
+        private const val VIBRATOR_REFRESH_AMPLITUDE = 50
+
         private const val WIDTH_MEDIUM = 600
         private const val WIDTH_EXPANDED = 1200
         private const val WIDTH_LARGE = 1600

@@ -1,10 +1,12 @@
 package ru.null_checkers.form_filling_screen.ui.formfilling
 
+import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
-import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
-import android.net.Uri
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +15,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
 import androidx.core.widget.doAfterTextChanged
-import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -29,7 +28,10 @@ import kotlinx.coroutines.launch
 import ru.null_checkers.common.autocomplete.ProfileDataViewModel
 import ru.null_checkers.common.autocomplete.ProfileViewModelFactory
 import ru.null_checkers.common.models.MediaFile
+import ru.null_checkers.form_filling_screen.R
 import ru.null_checkers.form_filling_screen.databinding.FragmentFormFillingBinding
+import ru.null_checkers.form_filling_screen.domain.factory.DialogFactory
+import ru.null_checkers.form_filling_screen.ui.Animation.imagePickSimpleAnimation
 import ru.null_checkers.ui.toolbar.ToolbarController
 
 class FormFilling : Fragment() {
@@ -40,17 +42,19 @@ class FormFilling : Fragment() {
     private val viewModel by activityViewModels<FormFillingViewModel>()
     private val dataViewModel: ProfileDataViewModel by viewModels {
         ProfileViewModelFactory(
-            requireContext().getSharedPreferences("ProfilePrefs", Context.MODE_PRIVATE)
+            requireContext().getSharedPreferences("ProfilePrefs", MODE_PRIVATE)
         )
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentFormFillingBinding.inflate(inflater, container, false)
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -65,13 +69,19 @@ class FormFilling : Fragment() {
         keyBoardListener()
         clearFieldsFocus()
 
-        val permissions = GetPermissions()()
+        view.post {
+            checkShowFormAboutDialog()
+        }
 
-        ActivityCompat.requestPermissions(
-            requireActivity(),
-            permissions,
-            0
-        )
+//        val permissions = GetPermissions()()
+
+        //TODO: Из-за этого происходит мигание
+//        ActivityCompat.requestPermissions(
+//            requireActivity(),
+//            permissions,
+//            0
+//        )
+//        Log.d("FORM_FILLING_FRAGMENT", "ON VIEW CREATED")
         viewLifecycleOwner.lifecycleScope.launch {
             dataViewModel.profileData.collect { profile ->
                 profile?.let {
@@ -80,6 +90,20 @@ class FormFilling : Fragment() {
                 }
             }
         }
+    }
+
+    private fun checkShowFormAboutDialog() {
+        val preferences =
+            requireContext().getSharedPreferences(DIALOG_ABOUT_FORM, MODE_PRIVATE)
+        val dialogNeedShowing = preferences.getBoolean(DIALOG_ABOUT_FORM, true)
+
+        if (dialogNeedShowing) {
+            showDialogAboutForm(preferences)
+        }
+    }
+
+    private fun showDialogAboutForm(preferences: SharedPreferences) {
+        DialogFactory().createAboutFormDialog(requireContext(), preferences).show()
     }
 
     private fun setTitle() {
@@ -128,6 +152,8 @@ class FormFilling : Fragment() {
                                     .override(SELECTED_IMAGE_WIDTH, SELECTED_IMAGE_HEIGHT)
                                     .centerCrop()
                                     .into(buttonForAddImage)
+
+                                addPickImage(buttonForAddImage)
                             }
                         }
                         if (name.isBlank() || tgAcc.isBlank() || file == null) {
@@ -212,6 +238,10 @@ class FormFilling : Fragment() {
         addInternetFormButton(onlineFormButton)
     }
 
+    private fun addPickImage(view: View) {
+        view.imagePickSimpleAnimation()
+    }
+
     private fun addInternetFormButton(view: View) {
         view.setOnClickListener {
             openUrlWithDialog()
@@ -228,7 +258,7 @@ class FormFilling : Fragment() {
     private fun sendEmail(
         name: String,
         tgAccount: String,
-        file: MediaFile?
+        file: MediaFile?,
     ) {
         val text = "Участник: $name\nКонтакты: $tgAccount"
         val intent = Intent(Intent.ACTION_SEND).apply {
@@ -254,38 +284,24 @@ class FormFilling : Fragment() {
         }
     }
 
-    private var isProcessing = false
+//    private var isProcessing = false
 
     /**
      *  Функция добавляет действие выбора изображения из локального хранилища
      */
     private fun addImageFromLocal(view: View) {
         view.setOnClickListener {
-            if (!isProcessing) {
-                isProcessing = true
-//                viewModel.openGallery(requireActivity())
-                /*
-                Нужно регистрировать активити при инициализации фрагмента, возможно можно сделать
-                это при создании вью
-                 */
-                openGallery()
-            }
+            openGallery()
         }
     }
 
-    private val galleryLauncher = registerForActivityResult(
-        ActivityResultContracts.GetContent()
-    ) { uri: Uri? ->
-        isProcessing = false
-        uri?.let { imageUri ->
-            val fileName = DocumentFile.fromSingleUri(requireContext(), imageUri)?.name
-                ?: uri.lastPathSegment.toString()
-            viewModel.onItemClick(MediaFile(uri = imageUri, name = fileName))
-        }
-    }
-
+    /**
+     * Открытие диалога с галереей
+     */
     private fun openGallery() {
-        galleryLauncher.launch(GALLERY_LAUNCHER_FILTER)
+        Log.d("Navigation to dialog", "переход на диалоговое окно")
+        viewModel.updateDialogState(true)
+        findNavController().navigate(R.id.action_formFilling_to_imagePickFragment)
     }
 
     /**
@@ -303,8 +319,8 @@ class FormFilling : Fragment() {
         _binding = null
     }
 
-    private companion object {
-        private const val GALLERY_LAUNCHER_FILTER = "image/*"
+    companion object {
+        const val DIALOG_ABOUT_FORM = "Dialog_about_form"
 
         private const val SELECTED_IMAGE_HEIGHT = 300
         private const val SELECTED_IMAGE_WIDTH = 300

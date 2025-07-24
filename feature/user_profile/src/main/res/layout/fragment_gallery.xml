@@ -21,11 +21,14 @@
             android:id="@+id/AddPhotoBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Добавить"
-            android:backgroundTint="@android:color/black"
+            android:text="@string/addPhotoButtonText"
+            android:backgroundTint="@color/backgroundButton"
+            android:textColor="@color/textColorButton"
             android:layout_margin="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </FrameLayout>

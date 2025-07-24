@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:layout_gravity="center_horizontal"
-    android:background="@null"
+    android:background="@color/background"
     android:maxWidth="480dp">
 
     <ImageButton
@@ -14,7 +14,7 @@
         android:layout_height="48dp"
         android:layout_marginVertical="4dp"
         android:background="@null"
-        android:contentDescription="Home Toolbar Button"
+        android:contentDescription="@string/home_toolbar_button_description"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/toolbar_title"
@@ -30,7 +30,7 @@
         android:gravity="center"
         android:maxLines="1"
         android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-        android:textColor="@color/black"
+        android:textColor="@color/textColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btn_menu"
         app:layout_constraintStart_toEndOf="@id/btn_back_to_main"
@@ -44,12 +44,12 @@
         android:layout_height="48dp"
         android:layout_margin="4dp"
         android:background="@null"
-        android:contentDescription="Menu Toolbar Button"
+        android:contentDescription="@string/menu_toolbar_button_description"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/toolbar_title"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/hamburger" />
+        app:srcCompat="@drawable/menu_for_serebro" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

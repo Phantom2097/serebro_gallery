@@ -15,7 +15,7 @@ import com.example.serebro_gallery.R
 import com.example.serebro_gallery.presentation.shared_viewmodel.PhotoViewModel
 import ru.null_checkers.common.entity.SharedViewModel
 import ru.null_checkers.data.local.database.AppDatabase
-import ru.null_checkers.data.local.repository.PhotoRepository
+import ru.null_checkers.data.local.repository.PhotoRepositoryImpl
 import ru.null_checkers.exhibition.databinding.ActivityMainBinding
 import ru.null_checkers.exhibition.presentation.exhibition_list.MainViewModel
 import ru.null_checkers.ui.databinding.AppActionBarBinding
@@ -77,8 +77,7 @@ class MainActivity : AppCompatActivity(), ToolbarController, SharedViewModel {
         try {
             viewModel.clearSelectedItem()
             val navController = findNavController(ru.null_checkers.exhibition.R.id.nav_host)
-            navController.popBackStack(ru.null_checkers.exhibition.R.id.mainFragment, inclusive = false)
-            navController.navigate(ru.null_checkers.exhibition.R.id.mainFragment)
+            navController.navigate(ru.null_checkers.exhibition.R.id.exhibition_nav_graph)
 
         } catch (e: Exception) {
             Log.e("NAV", "Navigation error", e)
@@ -128,7 +127,7 @@ class MainActivity : AppCompatActivity(), ToolbarController, SharedViewModel {
     }
 
     private val database by lazy { AppDatabase.getDatabase(this) }
-    private val repository by lazy { PhotoRepository(database.photoDao()) }
+    private val repository by lazy { PhotoRepositoryImpl(database.photoDao()) }
 
     // Фабрика для ViewModel
     @Suppress("UNCHECKED_CAST")
